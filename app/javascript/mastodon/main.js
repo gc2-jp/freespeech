@@ -45,7 +45,7 @@ const sleep = function(msec){
 window.onload = async function() {
   let ComposeFormList = document.getElementsByClassName("compose-form");
   while (ComposeFormList.length == 0){
-    sleep(0.1);
+    sleep(1);
   }
   let AdElement = document.createElement("div");
   AdElement.classList.add('ad_ad1')
