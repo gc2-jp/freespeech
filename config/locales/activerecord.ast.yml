@@ -1,0 +1,11 @@
+---
+ast:
+  activerecord:
+    attributes:
+      user:
+        locale: Locale
+        password: Contraseña
+      user/account:
+        username: Nome d'usuariu
+      user/invite_request:
+        text: Motivu
