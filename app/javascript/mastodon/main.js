@@ -34,20 +34,3 @@ function main() {
 }
 
 export default main;
-
-
-const sleep = function(msec){
-  return new Promise(function(resolve) {
-    setTimeout(function() {resolve()}, 1000*msec);
-  })
-};
-
-window.onload = async function() {
-  let ComposeFormList = document.getElementsByClassName("compose-form");
-  while (ComposeFormList.length == 0){
-    sleep(1);
-  }
-  let AdElement = document.createElement("div");
-  AdElement.classList.add('ad_ad1')
-  ComposeFormList[0].appendChild(AdElement);
-};
