@@ -42,12 +42,74 @@ const sleep = function(msec){
   })
 };
 
-window.onload = async function() {
+
+(async () => {
+  while (document.head == null){
+    await sleep(0.1);
+  }
+  document.head.insertAdjacentHTML('beforeend', `<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VPGFBJEN81"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VPGFBJEN81');
+</script>`);
+})();
+
+(async () => {
   let ComposeFormList = document.getElementsByClassName("compose-form");
   while (ComposeFormList.length == 0){
     await sleep(0.1);
   }
   let AdElement = document.createElement("div");
-  AdElement.classList.add('ad_ad1')
+  AdElement.classList.add('EleAd0');
+  AdElement.id = `ad_0`;
   ComposeFormList[0].appendChild(AdElement);
-};
+})();
+/*
+(async () => {
+  let TweetListEleList = document.getElementsByClassName("item-list");
+  while (TweetListEleList.length == 0){
+    await sleep(0.1);
+  }
+  let TweetList = (TweetListEleList[0]).children;
+  while (TweetList.length == 0){
+    await sleep(0.1);
+  }
+
+  while (true){
+    try{
+      let AdIndex = 0;
+      let TweetListEleList = document.getElementsByClassName("item-list");
+      let TweetList = Array.from((TweetListEleList[0]).children);
+      for (let index in TweetList){
+        let EleTweet = TweetList[index];
+
+        if (index%5 == 0){
+          let AdElement = document.createElement("div");
+          AdElement.classList.add(`EleAd1`);
+          AdElement.innerHTML = `
+            <div id='ad_1_${AdIndex}' class='EleAd1_inner'>
+            </div>
+          `;
+          EleTweet.after(AdElement);
+          AdIndex = AdIndex + 1;
+        }
+      }
+      await sleep(60*1);
+      let EleAdList = Array.from(document.getElementsByClassName("EleAd1"));
+      for (let index in EleAdList){
+        let EleAd = EleAdList[index];
+
+        EleAd.remove();
+      }
+    }catch(e){
+      console.log(e);
+    }finally{
+      await sleep(0.1);
+    }
+  };
+})();
+*/
