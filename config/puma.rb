@@ -1,6 +1,6 @@
 persistent_timeout ENV.fetch('PERSISTENT_TIMEOUT') { 20 }.to_i
 
-threads_count = ENV.fetch('MAX_THREADS') { 32 }.to_i
+threads_count = ENV.fetch('MAX_THREADS') { 5 }.to_i
 threads threads_count, threads_count
 
 if ENV['SOCKET']
@@ -10,7 +10,7 @@ else
 end
 
 environment ENV.fetch('RAILS_ENV') { 'development' }
-workers     ENV.fetch('WEB_CONCURRENCY') { 16 }
+workers     ENV.fetch('WEB_CONCURRENCY') { 2 }
 
 preload_app!
 
