@@ -42,22 +42,6 @@ const sleep = function(msec){
   })
 };
 
-
-(async () => {
-  while (document.head == null){
-    await sleep(0.1);
-  }
-  document.head.insertAdjacentHTML('beforeend', `<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VPGFBJEN81"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-VPGFBJEN81');
-</script>`);
-})();
-
 (async () => {
   let ComposeFormList = document.getElementsByClassName("compose-form");
   while (ComposeFormList.length == 0){
