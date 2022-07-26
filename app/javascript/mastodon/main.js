@@ -126,12 +126,12 @@ const AdList = {
       }
       count = 0;
       while (count < 60){
+        await sleep(1);
         let AdEleList = document.getElementsByClassName("EleAd1");
         if (AdEleList.length == 0 && count >= 1){
           break;
         }
         count = count + 1;
-        await sleep(1);
       }
       let EleAdList = Array.from(document.getElementsByClassName("EleAd1"));
       for (let index in EleAdList){
