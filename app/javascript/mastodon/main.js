@@ -102,7 +102,7 @@ const AdList = {
       for (let index in TweetList){
         let EleTweet = TweetList[index];
 
-        if (index%5 == 0){
+        if (index%10 == 0){
           let AdElement = document.createElement("div");
           AdElement.id = `ad_1_${AdIndex}`;
           AdElement.classList.add(`EleAd1`);
@@ -118,7 +118,15 @@ const AdList = {
           AdIndex = AdIndex + 1;
         }
       }
-      await sleep(60*1);
+      let count = 0;
+      while (count < 60){
+        let AdEleList = document.getElementsByClassName("EleAd1");
+        if (AdEleList.length == 0 && count >= 1){
+          break;
+        }
+        count = count + 1;
+        await sleep(1);
+      }
       let EleAdList = Array.from(document.getElementsByClassName("EleAd1"));
       for (let index in EleAdList){
         let EleAd = EleAdList[index];
