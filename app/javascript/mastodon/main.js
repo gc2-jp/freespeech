@@ -42,17 +42,48 @@ const sleep = function(msec){
   })
 };
 
+const AdList = {
+  "ad_0":[
+    {
+      "link":"https://www.skyphone.jp/",
+      "img":"/ad/skyphone.jp_250_50.jpg",
+    },
+    {
+      "link":"https://erovideosearch.com/",
+      "img":"/ad/erovideosearch.com_250_50.jpg",
+    },
+  ],
+  "ad_1":[
+    {
+      "link":"https://www.skyphone.jp/",
+      "img":"/ad/skyphone.jp_728_90.jpg",
+    },
+    {
+      "link":"https://erovideosearch.com/",
+      "img":"/ad/erovideosearch.com_728_90.jpg",
+    },
+  ],
+};
+
 (async () => {
   let ComposeFormList = document.getElementsByClassName("compose-form");
   while (ComposeFormList.length == 0){
     await sleep(0.1);
   }
   let AdElement = document.createElement("div");
+  AdElement.id = "ad_0";
   AdElement.classList.add('EleAd0');
-  AdElement.id = `ad_0`;
   ComposeFormList[0].appendChild(AdElement);
+
+  let ad = AdList["ad_0"][Math.floor(Math.random() * AdList["ad_0"].length)];
+
+  AdElement.innerHTML = `
+    <div class='EleAd0_inner'>
+      <a href="${ad["link"]}"><img src="${ad["img"]}"></a>
+    </div>
+  `;
 })();
-/*
+
 (async () => {
   let TweetListEleList = document.getElementsByClassName("item-list");
   while (TweetListEleList.length == 0){
@@ -73,12 +104,17 @@ const sleep = function(msec){
 
         if (index%5 == 0){
           let AdElement = document.createElement("div");
+          AdElement.id = `ad_1_${AdIndex}`;
           AdElement.classList.add(`EleAd1`);
+
+          let ad = AdList["ad_1"][Math.floor(Math.random() * AdList["ad_1"].length)];
+
           AdElement.innerHTML = `
-            <div id='ad_1_${AdIndex}' class='EleAd1_inner'>
+            <div class='EleAd1_inner'>
+              <a href="${ad["link"]}"><img src="${ad["img"]}"></a>
             </div>
           `;
-          EleTweet.after(AdElement);
+          EleTweet.before(AdElement);
           AdIndex = AdIndex + 1;
         }
       }
@@ -96,4 +132,3 @@ const sleep = function(msec){
     }
   };
 })();
-*/
