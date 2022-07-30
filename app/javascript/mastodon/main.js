@@ -48,24 +48,20 @@ const AdList = {
       "link":"https://www.skyphone.jp/",
       "img":"/ad/skyphone.jp_250_50.jpg",
     },
-    /*
     {
       "link":"https://erovideosearch.com/",
       "img":"/ad/erovideosearch.com_250_50.jpg",
     },
-    */
   ],
   "ad_1":[
     {
       "link":"https://www.skyphone.jp/",
       "img":"/ad/skyphone.jp_728_90.jpg",
     },
-    /*
     {
       "link":"https://erovideosearch.com/",
       "img":"/ad/erovideosearch.com_728_90.jpg",
     },
-    */
   ],
 };
 
