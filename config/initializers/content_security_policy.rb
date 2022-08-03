@@ -35,8 +35,8 @@ Rails.application.config.content_security_policy do |p|
     p.child_src   :self, :blob, assets_host
     p.worker_src  :self, :blob, assets_host
   else
-    p.connect_src :self, :data, :blob, assets_host, media_host, Rails.configuration.x.streaming_api_base_url, "https://*.google-analytics.com", "https://*.analytics.google.com", "https://*.googletagmanager.com"
-    p.script_src  :self, assets_host, "https://*.googletagmanager.com", "'sha256-0XKK4syymwOd6zCyqlD5X6T1pjUDujiD/pB6JUoOTNw='"
+    p.connect_src :self, :data, :blob, assets_host, media_host, Rails.configuration.x.streaming_api_base_url, "https://*.google-analytics.com", "https://*.analytics.google.com", "https://*.googletagmanager.com", "https://j.microad.net"
+    p.script_src  :self, assets_host, "https://*.googletagmanager.com", "'sha256-0XKK4syymwOd6zCyqlD5X6T1pjUDujiD/pB6JUoOTNw='", "https://j.microad.net" ,"'sha256-G/05YyG7B7vBSHABlYl7tN5L6sTGFCbfuespzdN7Dz4='"
     p.child_src   :self, :blob, assets_host
     p.worker_src  :self, :blob, assets_host
   end

@@ -42,29 +42,6 @@ const sleep = function(msec){
   })
 };
 
-const AdList = {
-  "ad_0":[
-    {
-      "link":"https://www.skyphone.jp/",
-      "img":"/ad/skyphone.jp_250_50.jpg",
-    },
-    {
-      "link":"https://erovideosearch.com/",
-      "img":"/ad/erovideosearch.com_250_50.jpg",
-    },
-  ],
-  "ad_1":[
-    {
-      "link":"https://www.skyphone.jp/",
-      "img":"/ad/skyphone.jp_728_90.jpg",
-    },
-    {
-      "link":"https://erovideosearch.com/",
-      "img":"/ad/erovideosearch.com_728_90.jpg",
-    },
-  ],
-};
-
 (async () => {
   let ComposeFormList = document.getElementsByClassName("compose-form");
   while (ComposeFormList.length == 0){
@@ -73,15 +50,13 @@ const AdList = {
   let AdElement = document.createElement("div");
   AdElement.id = "ad_0";
   AdElement.classList.add('EleAd0');
-  ComposeFormList[0].appendChild(AdElement);
-
-  let ad = AdList["ad_0"][Math.floor(Math.random() * AdList["ad_0"].length)];
-
   AdElement.innerHTML = `
-    <div class='EleAd0_inner'>
-      <a href="${ad["link"]}"><img src="${ad["img"]}"></a>
-    </div>
-  `;
+<div class='EleAd0_inner'>
+  <div id="85a600a0b51da95f7634f2b99bb31b42" >
+  </div>
+</div>
+`;
+  ComposeFormList[0].appendChild(AdElement);
 })();
 
 (async () => {
@@ -94,55 +69,30 @@ const AdList = {
     await sleep(0.1);
   }
 
-  while (true){
-    try{
-      let AdIndex = 0;
-      let TweetListEleList = document.getElementsByClassName("item-list");
-      let TweetList = Array.from((TweetListEleList[0]).children);
-      let count = 0;
-      for (let index in TweetList){
-        let EleTweet = TweetList[index];
+  let AdIndex = 0;
+  TweetList = Array.from(TweetList);
+  let count = 0;
+  for (let index in TweetList){
+    let EleTweet = TweetList[index];
 
-        if (EleTweet.tagName.toLowerCase() != "article"){
-          continue;
-        }
-
-        if (count%10 == 0){
-          let AdElement = document.createElement("div");
-          AdElement.id = `ad_1_${AdIndex}`;
-          AdElement.classList.add(`EleAd1`);
-
-          let ad = AdList["ad_1"][Math.floor(Math.random() * AdList["ad_1"].length)];
-
-          AdElement.innerHTML = `
-            <div class='EleAd1_inner'>
-              <a href="${ad["link"]}"><img src="${ad["img"]}"></a>
-            </div>
-          `;
-          EleTweet.before(AdElement);
-          AdIndex = AdIndex + 1;
-        }
-        count = count + 1;
-      }
-      count = 0;
-      while (count < 60){
-        await sleep(1);
-        let AdEleList = document.getElementsByClassName("EleAd1");
-        if (AdEleList.length == 0 && count >= 1){
-          break;
-        }
-        count = count + 1;
-      }
-      let EleAdList = Array.from(document.getElementsByClassName("EleAd1"));
-      for (let index in EleAdList){
-        let EleAd = EleAdList[index];
-
-        EleAd.remove();
-      }
-    }catch(e){
-      console.log(e);
-    }finally{
-      await sleep(0.1);
+    if (EleTweet.tagName.toLowerCase() != "article"){
+      continue;
     }
-  };
+
+    if (count%10 == 0){
+      let AdElement = document.createElement("div");
+      AdElement.id = `ad_1_${AdIndex}`;
+      AdElement.classList.add(`EleAd1`);
+      AdElement.innerHTML = `
+<div class='EleAd1_inner'>
+  <div id="88e27918ca6c4caf07dbe7db0898257f" >
+  </div>
+</div>
+`;
+      EleTweet.before(AdElement);
+
+      AdIndex = AdIndex + 1;
+    }
+    count = count + 1;
+  }
 })();
