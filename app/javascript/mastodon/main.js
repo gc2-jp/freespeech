@@ -55,7 +55,7 @@ const AdList = {
       `,
       "sptag":`
         <div class='EleAd1_inner'>
-          <iframe id='ad05adf8' name='ad05adf8' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=4&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=af9f3ae1&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=4&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=af9f3ae1' border='0' alt='' /></a></iframe>
+          <iframe id='afe1024c' name='afe1024c' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=5&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=a0067565&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=5&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a0067565' border='0' alt='' /></a></iframe>
           @Ad
         </div>
       `,
@@ -70,7 +70,7 @@ const AdList = {
       `,
       "sptag":`
         <div class='EleAd1_inner'>
-          <iframe id='aece51c1' name='aece51c1' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=6&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=ab7b2dc2&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=6&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ab7b2dc2' border='0' alt='' /></a></iframe>
+          <iframe id='a3f1fdab' name='a3f1fdab' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=6&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=a9bb456a&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=6&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a9bb456a' border='0' alt='' /></a></iframe>
           @Ad
         </div>
       `,
@@ -85,7 +85,7 @@ const AdList = {
       `,
       "sptag":`
         <div class='EleAd1_inner'>
-          <iframe id='ae7fc7d0' name='ae7fc7d0' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=7&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=a84994b6&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=7&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a84994b6' border='0' alt='' /></a></iframe>
+          <iframe id='a30fc57a' name='a30fc57a' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=7&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=a179b21b&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=7&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a179b21b' border='0' alt='' /></a></iframe>
           @Ad
         </div>
       `,
