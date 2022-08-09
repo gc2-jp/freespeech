@@ -45,6 +45,22 @@ const sleep = function(msec){
 
 
 const AdList = {
+  "ad_0":[
+    {
+      "pctag":`
+        <div class='EleAd0_inner'>
+          <iframe id='acf3b41d' name='acf3b41d' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=8&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='234' height='60' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=ac5f4d45&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=8&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ac5f4d45' border='0' alt='' /></a></iframe>
+        </div>
+      `,
+    },
+    {
+      "pctag":`
+        <div class='EleAd0_inner'>
+          <iframe id='ae55b7ff' name='ae55b7ff' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=9&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='234' height='60' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=ab7db104&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=9&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ab7db104' border='0' alt='' /></a></iframe>
+        </div>
+      `,
+    },
+  ],
   "ad_1":[
     {
       "pctag":`
@@ -93,6 +109,24 @@ const AdList = {
     },
   ],
 };
+
+(async () => {
+  let ComposeFormList = document.getElementsByClassName("compose-form");
+  while (ComposeFormList.length == 0){
+    await sleep(0.1);
+  }
+
+  for (let index in AdList["ad_0"]){
+    let AdData = AdList["ad_0"][index];
+
+    let EleAd = document.createElement("div");
+    EleAd.id = `ad_0_${index}`;
+    EleAd.classList.add(`EleAd0`);
+    EleAd.innerHTML = AdData["pctag"];
+    ComposeFormList[0].appendChild(EleAd);
+  }
+})();
+
 (async () => {
   let TweetListEleList = document.getElementsByClassName("item-list");
   while (TweetListEleList.length == 0){
@@ -124,6 +158,9 @@ const AdList = {
     try{
       let AdIndex = 0;
       let TweetListEleList = document.getElementsByClassName("item-list");
+      if (TweetListEleList.length == 0){
+        continue;
+      }
       let TweetList = Array.from((TweetListEleList[0]).children);
       let count = 0;
       for (let index in TweetList){
