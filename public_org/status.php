@@ -12,7 +12,7 @@ $id = $_GET["id"];
 
 
 $TweetData = get("/api/v1/statuses/".$id);
-$TweetData->account->username;
+$username = $TweetData->account->username;
 $context = $TweetData->context;
 
 echo <<<EOM
