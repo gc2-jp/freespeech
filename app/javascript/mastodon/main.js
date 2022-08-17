@@ -116,6 +116,10 @@ const AdList = {
     await sleep(0.1);
   }
 
+  if (ComposeFormList[0].clientHeight < 427){
+    return;
+  }
+
   for (let index in AdList["ad_0"]){
     let AdData = AdList["ad_0"][index];
 
