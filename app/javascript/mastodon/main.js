@@ -46,6 +46,7 @@ const sleep = function(msec){
 
 const AdList = {
   "ad_0":[
+    /*
     {
       "pctag":`
         <div class='EleAd0_inner'>
@@ -60,6 +61,7 @@ const AdList = {
         </div>
       `,
     },
+    */
   ],
   "ad_1":[
     {
