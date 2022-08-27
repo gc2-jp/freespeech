@@ -1,4 +1,5 @@
 import EXIF from 'exif-js';
+import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg/dist/ffmpeg.min.js'
 
 const MAX_IMAGE_PIXELS = 2073600; // 1920x1080px
 
@@ -170,20 +171,40 @@ const resizeImage = (img, type = 'image/png') => new Promise((resolve, reject) =
     .catch(reject);
 });
 
-export default inputFile => new Promise((resolve) => {
-  if (!inputFile.type.match(/image.*/) || inputFile.type === 'image/gif') {
+export default inputFile => new Promise(async function(resolve){
+  if (inputFile.type === 'image/gif'){
+    resolve(inputFile);
+    return;
+  }else if (inputFile.type.match(/image.*/)) {
+    loadImage(inputFile).then(img => {
+      if (img.width * img.height < MAX_IMAGE_PIXELS) {
+        resolve(inputFile);
+        return;
+      }
+
+      resizeImage(img, inputFile.type)
+        .then(resolve)
+        .catch(() => resolve(inputFile));
+    }).catch(() => resolve(inputFile));
+    return;
+  }else if(inputFile.type.match(/video.*/)){
+    try{
+      const ffmpeg = createFFmpeg({ log: true });
+
+      const { name } = inputFile;
+      await ffmpeg.load();
+      ffmpeg.FS('writeFile', name, await fetchFile(inputFile));
+      await ffmpeg.run('-i', name, '-vcodec', 'libx264', "-vf", "scale=-1:720", 'output.mp4');
+      const data = ffmpeg.FS('readFile', 'output.mp4');
+
+      inputFile = new File([new Blob([data.buffer],{type:'video/mp4'})],name,{type:'video/mp4'});
+    }catch(e){
+      console.log(e);
+    }
+    resolve(inputFile);
+    return;
+  }else{
     resolve(inputFile);
     return;
   }
-
-  loadImage(inputFile).then(img => {
-    if (img.width * img.height < MAX_IMAGE_PIXELS) {
-      resolve(inputFile);
-      return;
-    }
-
-    resizeImage(img, inputFile.type)
-      .then(resolve)
-      .catch(() => resolve(inputFile));
-  }).catch(() => resolve(inputFile));
 });
