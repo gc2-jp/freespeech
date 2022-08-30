@@ -202,7 +202,7 @@ export default class Card extends React.PureComponent {
     const description = (
       <div className='status-card__content'>
         {title}
-        {!(horizontal || compact) && <p className='status-card__description'>{trim(card.get('description') || '', maxDescription)}</p>}
+        {!(horizontal || compact) && <p className='status-card__description'>{trim(card.get('description') || '', 50)}</p>}
         <span className='status-card__host'>{provider}</span>
       </div>
     );
