@@ -923,7 +923,7 @@ en:
   auth:
     apply_for_account: Request an invite
     change_password: Password
-    checkbox_agreement_html: I agree to the <a href="%{rules_path}" target="_blank">server rules</a> and <a href="%{terms_path}" target="_blank">terms of service</a>
+    checkbox_agreement_html: I agree to the <a href="%{policy_path}" target="_blank">privacy policy</a> and <a href="%{terms_path}" target="_blank">terms of service</a>
     checkbox_agreement_without_rules_html: I agree to the <a href="%{terms_path}" target="_blank">terms of service</a>
     delete_account: Delete account
     delete_account_html: If you wish to delete your account, you can <a href="%{path}">proceed here</a>. You will be asked for confirmation.
@@ -1019,7 +1019,7 @@ en:
       email_contact_html: If it still doesn't arrive, you can e-mail <a href="mailto:%{email}">%{email}</a> for help
       email_reconfirmation_html: If you are not receiving the confirmation e-mail, you can <a href="%{path}">request it again</a>
       irreversible: You will not be able to restore or reactivate your account
-      more_details_html: For more details, see the <a href="%{terms_path}">privacy policy</a>.
+      more_details_html: For more details, see the <a href="%{policy_path}">privacy policy</a>.
       username_available: Your username will become available again
       username_unavailable: Your username will remain unavailable
   directories:

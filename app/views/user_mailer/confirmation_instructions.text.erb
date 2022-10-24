@@ -6,7 +6,7 @@
 
 => <%= confirmation_url(@resource, confirmation_token: @token, redirect_to_app: @resource.created_by_application ? 'true' : nil) %>
 
-<%= strip_tags(t('devise.mailer.confirmation_instructions.extra_html', terms_path: about_more_url, policy_path: terms_url)) %>
+<%= strip_tags(t('devise.mailer.confirmation_instructions.extra_html', terms_path: terms_url, policy_path: policy_url)) %>
 
-=> <%= about_more_url %>
 => <%= terms_url %>
+=> <%= policy_url %>

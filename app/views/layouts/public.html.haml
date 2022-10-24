@@ -34,7 +34,7 @@
             %h4= t 'footer.resources'
             %ul
               %li= link_to t('about.terms'), terms_path
-              %li= link_to t('about.privacy_policy'), terms_path
+              %li= link_to t('about.privacy_policy'), policy_path
           .column-1
             %h4= t 'footer.developers'
             %ul
@@ -57,6 +57,8 @@
         .legal-xs
           = link_to "v#{Mastodon::Version.to_s}", Mastodon::Version.source_url
           ·
-          = link_to t('about.privacy_policy'), terms_path
+          = link_to t('about.terms'), terms_path
+          ·
+          = link_to t('about.privacy_policy'), policy_path
 
 = render template: 'layouts/application'
