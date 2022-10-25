@@ -596,9 +596,11 @@ Rails.application.routes.draw do
 
   get '/about',        to: 'about#show'
   get '/about/more',   to: 'about#more'
-  get '/terms',        to: 'about#terms'
 
-  get '/faq/ios', to: 'faq#ios'
+  get '/terms',          to: 'faq#terms'                # don't delete/update/merge without understanding in detail
+  get '/privacy-policy', to: 'faq#privacy', as: :policy # don't delete/update/merge without understanding in detail
+
+  get '/faq/ios',     to: 'faq#ios'
   get '/faq/android', to: 'faq#android'
 
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false

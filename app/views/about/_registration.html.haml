@@ -22,7 +22,7 @@
           = invite_request_fields.input :text, as: :text, wrapper: :with_block_label, required: Setting.require_invite_text
 
     .fields-group
-      = f.input :agreement, as: :boolean, wrapper: :with_label, label: t('auth.checkbox_agreement_html', rules_path: about_more_path, terms_path: terms_path), required: true, disabled: disabled
+      = f.input :agreement, as: :boolean, wrapper: :with_label, label: t('auth.checkbox_agreement_html', rules_path: about_more_path, terms_path: terms_path, policy_path: policy_path), required: true, disabled: disabled
 
     .actions
       = f.button :button, sign_up_message, type: :submit, class: 'button button-primary', disabled: disabled

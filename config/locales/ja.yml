@@ -893,7 +893,7 @@ ja:
   auth:
     apply_for_account: 登録を申請する
     change_password: パスワード
-    checkbox_agreement_html: <a href="%{rules_path}" target="_blank">サーバーのルール</a>と<a href="%{terms_path}" target="_blank">プライバシーポリシー</a>に同意します
+    checkbox_agreement_html: <a href="%{terms_path}" target="_blank">利用規約</a>と<a href="%{policy_path}" target="_blank">プライバシーポリシー</a>に同意します
     checkbox_agreement_without_rules_html: <a href="%{terms_path}" target="_blank">利用規約</a>に同意します
     delete_account: アカウントの削除
     delete_account_html: アカウントを削除したい場合、<a href="%{path}">こちら</a>から手続きが行えます。削除する前に、確認画面があります。
@@ -989,7 +989,7 @@ ja:
       email_contact_html: それでも届かない場合、<a href="mailto:%{email}">%{email}</a>までメールで問い合わせてください
       email_reconfirmation_html: 確認のメールが届かない場合、<a href="%{path}">もう一度申請</a>できます。
       irreversible: 削除操作の撤回やアカウントの復活はできません
-      more_details_html: 詳しくは<a href="%{terms_path}">プライバシーポリシー</a>をご覧ください。
+      more_details_html: 詳しくは<a href="%{policy_path}">プライバシーポリシー</a>をご覧ください。
       username_available: あなたのユーザー名は再利用できるようになります
       username_unavailable: あなたのユーザー名は引き続き利用できません
   directories:
