@@ -61,6 +61,8 @@ import { closeOnboarding, INTRODUCTION_VERSION } from 'mastodon/actions/onboardi
 // Without this it ends up in ~8 very commonly used bundles.
 import '../../components/status';
 
+import Gc2Ad from '../../../gc2';
+
 const messages = defineMessages({
   beforeUnload: { id: 'ui.beforeunload', defaultMessage: 'Your draft will be lost if you leave Mastodon.' },
 });
@@ -548,6 +550,7 @@ class UI extends React.PureComponent {
           <ModalContainer />
           <UploadArea active={draggingOver} onClose={this.closeUploadModal} />
           <DocumentTitle />
+          <Gc2Ad />
         </div>
       </HotKeys>
     );

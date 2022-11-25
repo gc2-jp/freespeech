@@ -76,6 +76,7 @@ class Account < ApplicationRecord
   include DomainNormalizable
   include DomainMaterializable
   include AccountMerging
+  include AccountGc2
 
   enum protocol: [:ostatus, :activitypub]
   enum suspension_origin: [:local, :remote], _prefix: true
