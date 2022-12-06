@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_29_101850) do
+ActiveRecord::Schema.define(version: 2022_10_28_013526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -455,6 +455,42 @@ ActiveRecord::Schema.define(version: 2022_04_29_101850) do
     t.boolean "notify", default: false, null: false
     t.index ["account_id", "target_account_id"], name: "index_follows_on_account_id_and_target_account_id", unique: true
     t.index ["target_account_id"], name: "index_follows_on_target_account_id"
+  end
+
+  create_table "gc2_apple_purchase_transactions", force: :cascade do |t|
+    t.string "notification_type"
+    t.string "subtype"
+    t.string "notification_uuid"
+    t.datetime "signed_date"
+    t.json "transaction_info"
+    t.json "renewal_info"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["notification_uuid"], name: "index_gc2_apple_purchase_transactions_on_notification_uuid", unique: true
+  end
+
+  create_table "gc2_google_purchase_transactions", force: :cascade do |t|
+    t.integer "notification_type", limit: 2
+    t.string "purchase_token"
+    t.json "subscription"
+    t.string "message_id"
+    t.datetime "notified_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["message_id"], name: "index_gc2_google_purchase_transactions_on_message_id", unique: true
+  end
+
+  create_table "gc2_purchase_transactions", force: :cascade do |t|
+    t.bigint "account_id"
+    t.string "service"
+    t.string "product"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.string "transaction_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_gc2_purchase_transactions_on_account_id"
+    t.index ["service", "transaction_id"], name: "index_gc2_purchase_transactions_on_service_and_transaction_id", unique: true
   end
 
   create_table "identities", force: :cascade do |t|

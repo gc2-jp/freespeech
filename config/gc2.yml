@@ -1,0 +1,12 @@
+default: &default
+  ios_bundle_id: <%= ENV["IOS_BUNDLE_ID"] %>
+  android_package_name: <%= ENV["ANDROID_PACKAGE_NAME"] %>
+  android_subscription_id: <%= ENV["ANDROID_SUBSCRIPTION_ID"] %>
+test:
+  <<: *default
+
+development:
+  <<: *default
+
+production:
+  <<: *default

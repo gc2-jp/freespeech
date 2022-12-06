@@ -569,6 +569,16 @@ Rails.application.routes.draw do
         post :dimensions, to: 'dimensions#create'
         post :retention, to: 'retention#create'
       end
+
+      namespace :gc2 do
+        get  '/purchase', to: 'purchase#index'
+
+        post '/purchase/ios',     to: 'purchase#ios'
+        post '/purchase/android', to: 'purchase#android'
+
+        post '/notification/ios',     to: 'notification#ios'
+        post '/notification/android', to: 'notification#android'
+      end
     end
 
     namespace :v2 do
