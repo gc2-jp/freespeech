@@ -546,5 +546,6 @@
   "video.mute": "ミュート",
   "video.pause": "一時停止",
   "video.play": "再生",
-  "video.unmute": "ミュートを解除する"
+  "video.unmute": "ミュートを解除する",
+  "gc2_ad_about.heading": "広告表示について"
 }

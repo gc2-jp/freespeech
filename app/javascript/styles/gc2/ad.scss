@@ -1,0 +1,71 @@
+/* ==============================================
+  広告枠
+===============================================*/
+
+.EleAd0 {
+  margin:10px 0px 0px 0px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.EleAd0_inner {
+  width: 234px;
+  height: 60px;
+}
+.EleAd1 {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.EleAd1_inner {
+  width: 300px;
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+
+    .description a {
+      color: $primary-text-color;
+    }
+  }
+}
+
+/* ==============================================
+  ダミー広告表示用
+===============================================*/
+.gc2-dummy-ad {
+  display: flex;
+  width: 300px;
+  height: 250px;
+  border: 1px solid #000;
+  background-color: #777;
+  color: #fff;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 4em;
+}
+
+/* ==============================================
+  広告表示に関する本文
+===============================================*/
+
+.gc2-about-ad {
+  padding-top: 20px;
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+
+  .column-list {
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+  
+    ul {
+      list-style-type: disc;
+      margin-left: 1.75rem;
+    }
+  }
+}

@@ -161,3 +161,9 @@ export function CompareHistoryModal () {
 export function Explore () {
   return import(/* webpackChunkName: "features/explore" */'../../explore');
 }
+
+/* GC2 original start */
+export function Gc2AboutAd () {
+  return import(/* webpackChunkName: "gc2/about" */'../../../../gc2/components/about');
+}
+/* GC2 original end */

@@ -1,3 +1,5 @@
+@import 'ad';
+
 /* light 全体背景 */
 .theme-mastodon-light,
 .theme-mastodon-light .public-layout {
@@ -752,33 +754,6 @@
 /* high contrast */
 .theme-contrast .button.logo-button::before {
   filter: brightness(5);
-}
-
-
-
-
-
-/* ==============================================
-  広告枠
-===============================================*/
-
-.EleAd0 {
-  margin:10px 0px 0px 0px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.EleAd0_inner {
-  width: 234px;
-  height: 60px;
-}
-.EleAd1 {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.EleAd1_inner {
-  width: 300px;
 }
 
 /* ==============================================
