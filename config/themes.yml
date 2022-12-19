@@ -1,3 +1,3 @@
-default: styles/application.scss
-contrast: styles/contrast.scss
-mastodon-light: styles/mastodon-light.scss
+default: styles/gc2.scss
+contrast: styles/gc2-contrast.scss
+mastodon-light: styles/gc2-light.scss

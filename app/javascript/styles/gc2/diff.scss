@@ -1,0 +1,765 @@
+@import 'ad';
+
+/* light 全体背景 */
+.theme-mastodon-light,
+.theme-mastodon-light .public-layout {
+  background: rgb(250,250,250) !important;
+}
+
+/* ヒーローヘッダー */
+.hero-widget__img {
+  box-sizing: border-box;
+  border-radius: 0;
+}
+/* light */
+.theme-mastodon-light .hero-widget__img {
+  background: #fff;
+}
+@media screen and (min-width: 416px) {
+  .theme-mastodon-light .hero-widget__img {
+    border :1px solid rgb(192,205,217);
+    border-bottom: 0;
+  }
+}
+
+/* ==============================================
+  account(もっと詳しく)
+===============================================*/
+
+.theme-mastodon-light .public-layout .header {
+  background:rgb(240,240,240)
+}
+.theme-mastodon-light .public-layout .public-account-header__image {
+  background:white
+}
+.theme-mastodon-light .public-layout .header .nav-button {
+  background: #333;
+  color: white
+}
+.theme-mastodon-light .public-layout .header .nav-button:hover {
+  background: #444
+}
+
+@media screen and (max-width: 415px) {
+  .public-layout .container {
+    padding-top: 12px;
+  }
+}
+
+/* ==============================================
+  象ロゴ非表示
+===============================================*/
+
+@media screen and (max-width: 415px) {
+  .public-layout{padding-top: 0;
+  }
+}
+
+.landing__brand {
+  display: none;
+}
+
+@media screen and (min-width: 739px) {
+  .landing__grid {
+    margin-top: 50px;
+  }
+}
+
+/* ==============================================
+  /about
+===============================================*/
+
+/* widget */
+.theme-mastodon-light .box-widget {
+  background: rgb(240,240,240);
+}
+
+/* form */
+.theme-mastodon-light .simple_form input[type=email],
+.theme-mastodon-light .simple_form input[type=number],
+.theme-mastodon-light .simple_form input[type=password],
+.theme-mastodon-light .simple_form input[type=text],
+.theme-mastodon-light .simple_form input[type=url],
+.theme-mastodon-light .simple_form textarea{
+  background: white;
+  color: #333;
+  border: 1px solid rgb(200,200,200);
+}
+
+/* form(active, focus) */
+.theme-mastodon-light .simple_form input[type=email]:active,
+.theme-mastodon-light .simple_form input[type=email]:focus,
+.theme-mastodon-light .simple_form input[type=number]:active,
+.theme-mastodon-light .simple_form input[type=number]:focus,
+.theme-mastodon-light .simple_form input[type=password]:active,
+.theme-mastodon-light .simple_form input[type=password]:focus,
+.theme-mastodon-light .simple_form input[type=text]:active,
+.theme-mastodon-light .simple_form input[type=text]:focus,
+.theme-mastodon-light .simple_form input[type=url]:active,
+.theme-mastodon-light .simple_form input[type=url]:focus,
+.theme-mastodon-light .simple_form textarea:active,
+.theme-mastodon-light .simple_form textarea:focus {
+  background: white;
+}
+.theme-mastodon-light .simple_form .label_input__append::after {
+  background-image: linear-gradient(90deg,rgba(255,255,255,0),#fff);
+}
+.theme-mastodon-light .landing .simple_form .user_agreement .label_input > label,
+.landing .simple_form p.lead {
+  color: #333;
+}
+.theme-mastodon-light .simple_form .input.with_block_label > label {
+  color: #333;
+}
+.theme-mastodon-light .simple_form .hint {
+  color: #444;
+}
+
+/* text */
+.theme-mastodon-light .directory__tag > a,
+.directory__tag > div {
+  background: rgb(240,240,240);
+  box-shadow: 0 0 4px rgb(0 0 0 / 20%);
+}
+.theme-mastodon-light .directory__tag h4 {
+  color: #333;
+}
+.theme-mastodon-light .directory__tag h4 .fa {
+  color: rgb(100,100,100);
+}
+.theme-mastodon-light .directory__tag > a:active,
+.theme-mastodon-light .directory__tag > a:focus,
+.theme-mastodon-light .directory__tag > a:hover {
+  background: white;
+}
+.theme-mastodon-light .directory__tag h4 small {
+  color: #444;
+}
+
+/* widget light */
+.theme-mastodon-light .hero-widget__text {
+  border: 1px solid #c0cdd9;
+  border-top: 0;
+  background: white;
+  color: #333;
+}
+.hero-widget__text a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 110px;
+  height: 30px;
+  margin-top: 6px;
+  border-radius: 25px;
+  color: white;
+  margin-left: auto;
+  font-size: 12px;
+}
+/* light */
+.theme-mastodon-light .hero-widget__text a {
+  background: #333;
+  margin-bottom: 5px;
+}
+/* default */
+.theme-default .hero-widget__text a {
+  background: rgb(116,125,152);
+  margin-bottom: 5px;
+}
+/* high contrast */
+.theme-contrast .hero-widget__text a {
+  background: rgb(57,108,228);
+  margin-bottom: 5px;
+}
+
+.theme-mastodon-light .landing .hero-widget__footer {
+  background: white;
+}
+.theme-mastodon-light .landing .hero-widget h4 {
+  color: rgb(115,134,160);
+}
+.theme-mastodon-light .account__display-name strong,
+.theme-mastodon-light .status__display-name strong {
+  color: #333;
+}
+.theme-mastodon-light .account .account__display-name {
+  color: rgb(115,134,160);
+}
+.theme-mastodon-light .landing .hero-widget__counter strong {
+  color: #333;
+}
+/* default */
+.theme-default .account .account__display-name {
+  color: rgb(115,134,160);
+}
+.theme-default .account .status__display-name {
+  color: rgb(115,134,160);
+}
+
+
+/* button */
+/* light */
+.theme-mastodon-light .simple_form .block-button,
+.theme-mastodon-light .simple_form .button,
+.theme-mastodon-light .simple_form button {
+  background: #333;
+  color:white;
+}
+.theme-mastodon-light .simple_form .block-button:hover,
+.theme-mastodon-light .simple_form .button:hover,
+.theme-mastodon-light .simple_form button:hover {
+  background: #333;
+  filter: brightness(1.2);
+}
+/* default */
+.theme-default .simple_form .block-button,
+.theme-default .simple_form .button,
+.theme-default .simple_form button {
+  background: rgb(116,125,152);
+  color: white;
+}
+.theme-default .simple_form .block-button:hover,
+.theme-default .simple_form .button:hover,
+.theme-default .simple_form button:hover {
+  background: rgb(116,125,152);
+  filter: brightness(1.2);
+}
+/* high contrast */
+.theme-contrast .simple_form .block-button,
+.theme-contrast .simple_form .button,
+.theme-contrast .simple_form button {
+  background: rgb(37,88,208);
+  color: white;
+}
+.theme-contrast .simple_form .block-button:hover,
+.theme-contrast .simple_form .button:hover,
+.theme-contrast .simple_form button:hover {
+  background: rgb(37,88,208);
+  filter: brightness(1.2);
+}
+
+/* mascot */
+.public-layout .landing-page__mascot {
+  height: 150px;
+}
+
+/* ==============================================
+  home
+===============================================*/
+
+/* search */
+.theme-mastodon-light .search__input {
+  background: rgb(242,246,250);
+}
+.theme-mastodon-light .search__input:focus {
+  background: white;
+}
+
+/* ==============================================
+  トゥート を ツイート にテキスト変更
+===============================================*/
+
+.button.button--block {
+  position: relative;
+}
+.button.button--block::before {
+  content: "ツイート";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+/* light */
+.theme-mastodon-light .button.button--block::before {
+  background: rgb(51,51,51);
+  color: white;
+}
+.theme-mastodon-light .button.button--block:hover::before {
+  background: rgb(51,51,51);
+  filter: brightness(1.2);
+}
+/* default */
+.theme-default .button.button--block::before {
+  background: rgb(103,111,147);
+  color: white;
+}
+.theme-default .button.button--block:hover::before {
+  background: rgb(103,111,147);
+  filter: brightness(1.2);
+}
+/* high contrast */
+.theme-contrast .button.button--block::before {
+  background: rgb(37,88,208);
+  color: white;
+}
+.theme-contrast .button.button--block:hover::before {
+  background: rgb(37,88,208);
+  filter: brightness(1.2);
+}
+
+/* smartphone */
+.theme-mastodon-light .getting-started .navigation-bar,
+.theme-mastodon-light .column-subheading {
+  background: rgb(232,236,240);
+}
+.theme-mastodon-light .tabs-bar__link:active,
+.theme-mastodon-light .tabs-bar__link:focus,
+.theme-mastodon-light .tabs-bar__link:hover {
+  background: rgb(232,236,240);
+}
+.theme-mastodon-light .account__section-headline,
+.theme-mastodon-light .notification__filter-bar {
+  background: rgb(232,236,240);
+}
+.floating-action-button {
+  right: 8px;
+  bottom: 110px;
+  z-index: 3;
+  width: 50px;
+  height: 50px;
+}
+/* light */
+.theme-mastodon-light .floating-action-button {
+  background: rgb(74,116,194);
+}
+.theme-mastodon-light .floating-action-button:active,
+.theme-mastodon-light .floating-action-button:focus,
+.theme-mastodon-light .floating-action-button:hover {
+  background: rgb(74,116,194);
+  filter: brightness(1.2);
+}
+/* default */
+.theme-default .floating-action-button {
+  background: rgb(116,125,152);
+}
+.theme-default .floating-action-button:active,
+.theme-default .floating-action-button:focus,
+.theme-default .floating-action-button:hover {
+  background: rgb(116,125,152);
+  filter: brightness(1.2);
+}
+/* high contrast */
+.theme-contrast .floating-action-button {
+  background: rgb(37,88,208);
+}
+.theme-contrast .floating-action-button:active,
+.theme-contrast .floating-action-button:focus,
+.theme-contrast .floating-action-button:hover {
+  background: rgb(37,88,208);
+  filter: brightness(1.2);
+}
+
+/* modal */
+.confirmation-modal__action-bar .button.confirmation-modal__cancel-button {
+  background: none !important;
+}
+/* light */
+.theme-mastodon-light .confirmation-modal__action-bar .button {
+  background: #333;
+}
+.theme-mastodon-light .confirmation-modal__action-bar .button:hover {
+  background: #333;
+  filter: brightness(1.2);
+}
+/* default */
+.theme-default .confirmation-modal__action-bar .button {
+  background: rgb(116,125,152);
+}
+.theme-default .confirmation-modal__action-bar .button:hover {
+  background: rgb(116,125,152);
+  filter: brightness(1.2);
+}
+/* high contrast */
+.theme-contrast .confirmation-modal__action-bar .button {
+  background: rgb(37,88,208);
+}
+.theme-contrast .confirmation-modal__action-bar .button:hover {
+  background: rgb(37,88,208);
+  filter: brightness(1.2);
+}
+
+/* ==============================================
+  不要リンク非表示
+===============================================*/
+
+.compose-panel .getting-started__footer > ul {
+  list-style: none;
+}
+.compose-panel .getting-started__footer > ul > li {
+  position: relative;
+}
+.compose-panel .getting-started__footer > ul > li::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.compose-panel .getting-started__footer > ul > li > a[href="/web/keyboard-shortcuts"],
+.compose-panel .getting-started__footer > ul > li > a[href="https://joinmastodon.org/apps"],
+.compose-panel .getting-started__footer > ul > li > a[href="/settings/applications"],
+.compose-panel .getting-started__footer > ul > li > a[href="https://docs.joinmastodon.org"] {
+  display: none;
+}
+.columns-area--mobile .getting-started__footer > ul > li > a[href="https://joinmastodon.org/apps"],
+.columns-area--mobile .getting-started__footer > ul > li > a[href="/settings/applications"],
+.columns-area--mobile .getting-started__footer > ul > li > a[href="https://docs.joinmastodon.org"] {
+  display: none;
+}
+
+/* ==============================================
+  column(カラム入れ替え)
+===============================================*/
+@media screen and (min-width: 415px) {
+  .columns-area__panels__pane--compositional {
+    order: 3;
+  }
+  .columns-area__panels__main {
+    order: 2;
+  }
+}
+
+/* ==============================================
+  ブースト を リツイート にテキスト変更
+===============================================*/
+
+.status__prepend > span {
+  visibility: hidden;
+}
+.status__prepend .status__display-name strong {
+  visibility: visible;
+}
+.status__prepend > span > a strong::after {
+  content: "さんがリツイート";
+  visibility: visible;
+}
+/* default */
+.theme-default .status__prepend .status__display-name strong {
+  color: rgb(136,145,172);
+}
+
+/* ==============================================
+  「連合」非表示
+===============================================*/
+
+.column-link--transparent[data-preview-icon="globe"],
+.tabs-bar__link[data-preview-icon="globe"] {
+  display: none;
+}
+
+/* ==============================================
+  タブバー 下部へ移動
+===============================================*/
+
+@media screen and (max-width: 895px) {
+  .item-list::after,
+  .scrollable > div::after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 40vh;
+  }
+  .tabs-bar__wrapper {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid;
+  }
+  /* light */
+  .theme-mastodon-light .tabs-bar__wrapper {
+    border-color: rgb(192,205,217);
+  }
+  /* default */
+  .theme-default .tabs-bar__wrapper {
+    border-color: rgb(102,115,127);
+  }
+  /* high contrast */
+  .theme-contrast .tabs-bar__wrapper {
+    border-color: rgb(150,150,150);
+  }
+}
+
+/* ==============================================
+  /sign_in
+===============================================*/
+
+.logo-container h1 {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 0 12px;
+}
+.logo-container h1 svg {
+  display: none;
+}
+.logo-container h1 a {
+  position: relative;
+  width: 100%;
+  padding: 0;
+}
+.logo-container h1 a::before {
+  content: "";
+  display: block;
+  padding-top: 30%;
+}
+.logo-container h1 a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+/* light */
+.theme-mastodon-light .logo-container h1 a::after {
+  background: url('../images/gc2_logo.png') center center /cover no-repeat;
+}
+/* default + high contrast */
+.theme-default .logo-container h1 a::after,
+.theme-contrast .logo-container h1 a::after {
+  background: url('../images/gc2_logo_default.png') center center /cover no-repeat;
+}
+
+/* light */
+.theme-mastodon-light .actions > button {
+  background: #333;
+}
+/* default */
+.theme-default .actions > button {
+  background: rgb(116,125,152);
+}
+
+/* dark
+.theme-default .logo-container h1 a,
+.theme-contrast .logo-container h1 a {
+  filter: invert(1);
+}*/
+
+/* ==============================================
+  /about
+===============================================*/
+
+.logo-container {
+  margin: 0 auto;
+}
+.public-layout .header .nav-button {
+  position: relative;
+}
+.public-layout .header .nav-button[href="/about/more"]::before,
+.public-layout .header .nav-button[href="https://testfreespeech.gaac2.com/"]::before {
+  content: "HOMEに戻る";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #333;
+  border-radius: 4px;
+}
+/* light */
+.theme-mastodon-light .public-layout .header .nav-button[href="https://testfreespeech.gaac2.com/about/more"]::before,
+.theme-mastodon-light .public-layout .header .nav-button[href="https://testfreespeech.gaac2.com/"]::before {
+  background: #333;
+  color: rgb(240,240,240);
+}
+/* default */
+.theme-default .public-layout .header .nav-button[href="https://testfreespeech.gaac2.com/about/more"]::before,
+.theme-default .public-layout .header .nav-button[href="https://testfreespeech.gaac2.com/"]::before {
+  background: rgb(116,125,152);
+  color: rgb(220,220,220);
+}
+
+
+/* ==============================================
+  /about 不要部位非表示
+===============================================*/
+
+.actions > a.button-primary {
+  position: relative;
+}
+.actions > a.button-primary::before {
+  content: "HOMEへ戻る";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 4px;
+}
+/* light */
+.theme-mastodon-light .actions > a.button-primary::before {
+  background: #333;
+}
+/* default */
+.theme-default .actions > a.button-primary::before {
+  background: rgb(103,111,147);
+}
+/* high contrast */
+.theme-contrast .actions > a.button-primary::before {
+  background: rgb(37,88,208);
+}
+
+.landing .simple_form p.lead {
+  display: none;
+}
+.directory,
+.public-layout .footer {
+  display: none;
+}
+
+/* ==============================================
+  about/more
+===============================================*/
+
+@media screen and (max-width: 415px) {
+  .public-layout .public-account-header--no-bar .public-account-header__image img {
+    object-fit: contain;
+  }
+}
+.public-layout .header .nav-left {
+  display: none;
+}
+/* default, high contrast */
+.theme-default .hero-widget__img img,
+.theme-contrast .hero-widget__img img {
+  visibility: hidden;
+}
+.theme-default .hero-widget__img,
+.theme-contrast .hero-widget__img {
+  background: url('../images/gc2_logo_default.png') center center /cover no-repeat;
+}
+
+/* ==============================================
+  admin(管理画面)
+===============================================*/
+
+.admin-wrapper .sidebar > a[href="/"] {
+  display: block;
+}
+/* light */
+.theme-mastodon-light .admin-wrapper .sidebar > a[href="/"] {
+  background: url('../images/gc2_logo.png') center center /60% auto no-repeat;
+}
+/* default + high contrast */
+.theme-default .admin-wrapper .sidebar > a[href="/"],
+.theme-contrast .admin-wrapper .sidebar > a[href="/"] {
+  background: url('../images/gc2_logo_default.png') center center /60% auto no-repeat;
+}
+
+.admin-wrapper .sidebar .logo {
+  visibility: hidden;
+}
+@media screen and (min-width: 601px) {
+  .admin-wrapper .sidebar-wrapper__inner {
+    padding-top: 40px;
+  }
+}
+.admin-wrapper .sidebar ul #web > a {
+  position: relative;
+}
+.admin-wrapper .sidebar ul #web > a::before {
+  content: "GC2に戻る";
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 37px);
+  height: 100%;
+  margin-left: 37px;
+  transition: all .2s linear;
+}
+/* light */
+.theme-mastodon-light .admin-wrapper .sidebar ul #web > a::before {
+  background: rgb(216,225,231);
+}
+.theme-mastodon-light .admin-wrapper .sidebar ul #web > a:hover::before {
+  background: #e9eef2;
+}
+/* default */
+.theme-default .admin-wrapper .sidebar ul #web > a::before {
+  background: rgb(40,44,55);
+}
+.theme-default .admin-wrapper .sidebar ul #web> a:hover::before {
+  background: rgb(30,32,40);
+}
+/* high contrast */
+.theme-contrast .admin-wrapper .sidebar ul #web > a::before {
+  background: rgb(40,44,55);
+}
+.theme-contrast .admin-wrapper .sidebar ul #web> a:hover::before {
+  background: rgb(30,32,40);
+}
+
+/* mobile */
+.admin-wrapper .sidebar__toggle__logo > a {
+  display: none;
+}
+
+/* ==============================================
+  フォローボタン アイコンと色調変更
+===============================================*/
+
+/* 320pxデバイス ボタン見切れ対処 */
+@media screen and (max-width: 600px) {
+  .public-layout .public-account-header__tabs {
+    flex-flow: wrap;
+  }
+  .public-layout .public-account-header__tabs__tabs {
+    margin-left: auto;
+  }
+}
+
+.button.logo-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button.logo-button svg {
+  display: none;
+}
+.button.logo-button::before {
+  content: "";
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+  background: url('../images/gc2_mascot.png') left center /auto 100% no-repeat;
+}
+
+/* light */
+.theme-mastodon-light .button.logo-button {
+  background: #333;
+}
+.theme-mastodon-light .button.logo-button::before {
+  filter: brightness(5);
+}
+/* default */
+.theme-default .button.logo-button {
+  background: rgb(116,125,152);
+}
+.theme-default .button.logo-button::before {
+  filter: brightness(5.2);
+}
+/* high contrast */
+.theme-contrast .button.logo-button::before {
+  filter: brightness(5);
+}
+
+/* ==============================================
+  スタッフバッチ
+===============================================*/
+
+#admin,#riyo,#Kikurin1030,#kohei,#shuncamaro,#minowa0828,#atsuhiko {
+  color: red;
+}

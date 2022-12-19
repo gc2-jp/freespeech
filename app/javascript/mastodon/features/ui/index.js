@@ -53,6 +53,7 @@ import {
   Directory,
   Explore,
   FollowRecommendations,
+  Gc2AboutAd,
 } from './util/async-components';
 import { me } from '../../initial_state';
 import { closeOnboarding, INTRODUCTION_VERSION } from 'mastodon/actions/onboarding';
@@ -195,6 +196,10 @@ class SwitchingColumnsArea extends React.PureComponent {
           <WrappedRoute path='/domain_blocks' component={DomainBlocks} content={children} />
           <WrappedRoute path='/mutes' component={Mutes} content={children} />
           <WrappedRoute path='/lists' component={Lists} content={children} />
+
+          {/* GC2 original start */}
+          <WrappedRoute path='/about-ad' component={Gc2AboutAd} content={children} />
+          {/* GC2 original end */}
 
           <WrappedRoute component={GenericNotFound} content={children} />
         </WrappedSwitch>
