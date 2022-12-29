@@ -399,7 +399,12 @@ Rails.application.routes.draw do
       resources :suggestions, only: [:index, :destroy]
       resources :scheduled_statuses, only: [:index, :show, :update, :destroy]
       resources :preferences, only: [:index]
-
+      resources :livechat, only: [:create, :show, :update] do
+        collection do
+          get 'available_room'
+        end
+      end
+      
       resources :announcements, only: [:index] do
         scope module: :announcements do
           resources :reactions, only: [:update, :destroy]
@@ -578,6 +583,13 @@ Rails.application.routes.draw do
 
         post '/notification/ios',     to: 'notification#ios'
         post '/notification/android', to: 'notification#android'
+      end
+
+      namespace :avl do
+        resources :push_stream_info, only: [:show]
+        resources :pull_stream_info, only: [:show]
+        resources :live_streams_online_list, only: [:index]
+        resources :live_stream_multirate_config, only: [:index]
       end
     end
 

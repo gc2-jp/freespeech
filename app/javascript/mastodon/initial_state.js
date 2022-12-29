@@ -28,5 +28,6 @@ export const title = getMeta('title');
 export const cropImages = getMeta('crop_images');
 export const disableSwiping = getMeta('disable_swiping');
 export const languages = initialState && initialState.languages;
+export const firebaseDatabaseURL = getMeta('firebase_databaseurl');
 
 export default initialState;

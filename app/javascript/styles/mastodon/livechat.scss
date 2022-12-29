@@ -1,0 +1,542 @@
+.livechat-choose {
+  display: flex;
+  justify-content: space-around;
+  height: 300px;
+
+  .button {
+    flex-grow: 1;
+    margin: 20px;
+  }
+
+  .icon {
+    font-size: 96px;
+    margin: 16px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+
+  .livechat {
+    display: flex;
+    flex-direction: row; // 2 columns
+    height: auto;
+    min-height: 100vh;
+    justify-content: center; // 左右余白あり
+    align-items: flex-start !important; // 上にそろえる
+
+    .info {
+      margin: 20px 0px 20px 20px;
+      flex-grow: 1; // 横方向に残り全て
+      max-width: 480px;
+      min-height: calc(100vh - 40px);
+      display: flex;
+      flex-direction: column; // 中のものは縦に並べる
+
+      .player {
+        border: 1px solid lighten($ui-base-color, 30%);
+        max-width: 480px;
+        width: 100%;
+        align-self: center;
+        aspect-ratio: 16/9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $ui-primary-color;
+
+        .icon {
+          font-size: 96px;
+        }
+
+        .video {
+          width: 100%;
+          height: 100%;
+        }
+
+        .reflect-x {
+          transform: scale(-1, 1);
+        }
+      }
+
+      .author {
+        margin-top: 15px;
+      }
+
+      .description {
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 8px;
+        border-radius: 8px;
+        margin-top: 15px;
+        background: $ui-base-color;
+
+        a {
+          text-decoration: none;
+          color: $highlight-text-color;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .show_more_wrap {
+          position: absolute;
+          right: 8px;
+          bottom: 8px;
+          .show_more_before {
+            display: inline-block;
+            width: 3em;
+            background: linear-gradient(to left, $ui-base-color, transparent);
+          }
+          .show_more {
+            color: $darker-text-color;
+            background-color: lighten($ui-base-color, 10%);
+          }
+        }
+      }
+
+      .compac_description {
+        .description_html {
+          max-height: calc(18px * 3); // 3 lines * 18px (line-height)
+          overflow-y: hidden;
+        }
+      }
+
+      .deviceList {
+        margin-top: 20px;
+      }
+
+      .marTopSmall {
+        margin-top: 5px;
+      }
+
+      .fontSizeSmall {
+        font-size: 13px;
+      }
+
+      .selectSmall {
+        height: 30px;
+        font-size: 13px;
+      }
+
+      .buttonSmall {
+        padding: 3px;
+        font-size: 13px;
+        margin-bottom: 0px;
+      }
+
+      .textareaSmall {
+        font-size: 12px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        resize: none;
+        overflow: hidden;
+        line-height: 1.5;
+        max-height: 78px;
+      }
+
+      .scrolly {
+        white-space: nowrap;
+        overflow-y: scroll;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      .marRightSmall {
+        margin-right: 5px;
+      }
+
+      .label {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      .camera,
+      .mic {
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+      }
+
+      .thumbnail {
+        width: 270px;
+      }
+
+      .nopadding {
+        padding: 0px;
+      }
+
+      .space {
+        flex-grow: 1;
+      }
+
+      .buttons {
+        max-width: 320px;
+      }
+
+      .separator {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid lighten($ui-base-color, 8%);
+      }
+    }
+  }
+
+  .chatarea {
+    margin: 20px;
+    width: 400px;
+    height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column; // 中のものは縦に並べる
+
+    .header {
+      padding: 4px 4px 4px 16px;
+      background-color: $ui-base-color;
+      border-radius: 16px 16px 0px 0px;
+    }
+
+    .display-name__html {
+      color: $light-text-color;
+      text-overflow: ellipsis;
+      white-space: normal;
+    }
+
+    .messages {
+      flex-grow: 1;
+      overflow-y: scroll;
+      border-left: 1px solid $ui-base-color;
+      border-right: 1px solid $ui-base-color;
+
+      .message {
+        display: flex;
+        margin: 10px;
+        word-break: break-word;
+        line-height: 1.2;
+
+        .avatar {
+          flex-shrink: 0;
+          flex-grow: 0;
+          margin-right: 10px;
+          border-radius: 4px;
+          background: transparent no-repeat;
+          background-position: 50%;
+          background-clip: padding-box;
+          display: block;
+          position: relative;
+        }
+
+        .text {
+          flex-grow: 1;
+          align-self: center;
+        }
+      }
+    }
+
+    .chatinput {
+      display: flex;
+      flex-direction: row;
+      padding: 10px;
+      background-color: $ui-base-color;
+
+      .avatar {
+        margin-right: 10px;
+      }
+
+      .chatinputsub {
+        flex-grow: 1;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+
+        .textareaSmall {
+          font-size: 12px;
+          padding-top: 3px;
+          padding-bottom: 3px;
+          resize: none;
+          overflow: hidden;
+          line-height: 1.5;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      background-color: $ui-base-color;
+      padding: 0px 10px 10px 10px;
+      border-radius: 0px 0px 16px 16px;
+
+      .space {
+        flex-grow: 1;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 599px) {
+  .livechat {
+    display: flex;
+    flex-direction: column; // 1 column
+    height: auto;
+    min-height: 100vh;
+    justify-content: center; // 左右余白あり
+    align-items: flex-start !important; // 上にそろえる
+    padding: 10px;
+
+    .info {
+      flex-grow: 1; // 横方向に残り全て
+      width: 100%;
+      display: flex;
+      flex-direction: column; // 中のものは縦に並べる
+
+      .player {
+        border: 1px solid lighten($ui-base-color, 30%);
+        width: 100%;
+        align-self: center;
+        aspect-ratio: 16/9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $ui-primary-color;
+
+        .icon {
+          font-size: 96px;
+        }
+
+        .video {
+          width: 100%;
+          height: 100%;
+        }
+
+        .reflect-x {
+          transform: scale(-1, 1);
+        }
+      }
+
+      .author {
+        margin-top: 15px;
+      }
+
+      .description {
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 8px;
+        border-radius: 8px;
+        margin-top: 15px;
+        background: $ui-base-color;
+
+        a {
+          text-decoration: none;
+          color: $highlight-text-color;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .show_more_wrap {
+          position: absolute;
+          right: 8px;
+          bottom: 8px;
+          .show_more_before {
+            display: inline-block;
+            width: 3em;
+            background: linear-gradient(to left, $ui-base-color, transparent);
+          }
+          .show_more {
+            color: $darker-text-color;
+            background-color: lighten($ui-base-color, 10%);
+          }
+        }
+      }
+
+      .compac_description {
+        .description_html {
+          max-height: calc(18px * 3); // 3 lines * 18px (line-height)
+          overflow-y: hidden;
+        }
+      }
+
+      .deviceList {
+        margin-top: 20px;
+      }
+
+      .marTopSmall {
+        margin-top: 5px;
+      }
+
+      .fontSizeSmall {
+        font-size: 13px;
+      }
+
+      .selectSmall {
+        height: 30px;
+        font-size: 13px;
+      }
+
+      .buttonSmall {
+        padding: 3px;
+        font-size: 13px;
+        margin-bottom: 0px;
+      }
+
+      .textareaSmall {
+        font-size: 12px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        resize: none;
+        overflow: hidden;
+        line-height: 1.5;
+        max-height: 78px;
+      }
+
+      .scrolly {
+        white-space: nowrap;
+        overflow-y: scroll;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      .marRightSmall {
+        margin-right: 5px;
+      }
+
+      .label {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      .camera, .mic {
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+      }
+
+      .thumbnail {
+        width: 270px;
+      }
+
+      .nopadding {
+        padding: 0px;
+      }
+
+      .space {
+        flex-grow: 1;
+      }
+
+      .buttons {
+        max-width: 320px;
+      }
+
+      .separator {
+        margin-top: 3px;
+        margin-bottom: 3px;
+        border-bottom: 1px solid lighten($ui-base-color, 8%);
+      }
+    }
+  }
+
+  .chatarea {
+    margin-top: 10px;
+    width: 100%;
+    height: 600px;
+    display: flex;
+    flex-direction: column; // 中のものは縦に並べる
+
+    .header {
+      padding: 4px 4px 4px 16px;
+      background-color: $ui-base-color;
+      border-radius: 16px 16px 0px 0px;
+    }
+
+    .display-name__html {
+      color: $light-text-color;
+      text-overflow: ellipsis;
+      white-space: normal;
+    }
+
+    .messages {
+      flex-grow: 1;
+      overflow-y: scroll;
+      border-left: 1px solid $ui-base-color;
+      border-right: 1px solid $ui-base-color;
+
+      .message {
+        display: flex;
+        margin: 10px;
+        word-break: break-word;
+        line-height: 1.2;
+
+        .avatar {
+          flex-shrink: 0;
+          flex-grow: 0;
+          margin-right: 10px;
+          border-radius: 4px;
+          background: transparent no-repeat;
+          background-position: 50%;
+          background-clip: padding-box;
+          display: block;
+          position: relative;
+        }
+
+        .text {
+          flex-grow: 1;
+          align-self: center;
+        }
+      }
+    }
+
+    .chatinput {
+      display: flex;
+      flex-direction: row;
+      padding: 10px;
+      background-color: $ui-base-color;
+
+      .avatar {
+        margin-right: 10px;
+      }
+
+      .chatinputsub {
+        flex-grow: 1;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+
+        .textareaSmall {
+          font-size: 12px;
+          padding-top: 3px;
+          padding-bottom: 3px;
+          resize: none;
+          overflow: hidden;
+          line-height: 1.5;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      background-color: $ui-base-color;
+      padding: 0px 10px 10px 10px;
+      border-radius: 0px 0px 16px 16px;
+      .space {
+        flex-grow: 1;
+      }
+    }
+  }
+}

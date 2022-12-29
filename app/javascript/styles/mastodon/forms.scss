@@ -503,6 +503,15 @@ code {
         background-color: lighten($error-value-color, 5%);
       }
 
+      &:disabled {
+        background-color: $ui-primary-color;
+        cursor: not-allowed;
+      }
+
+      &:disabled:active {
+        background-color: $ui-primary-color;
+      }
+
       &:active,
       &:focus {
         background-color: darken($error-value-color, 5%);
