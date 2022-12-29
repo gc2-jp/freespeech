@@ -75,6 +75,7 @@ class LivechatStatuses extends ImmutablePureComponent {
       const statusIds = this.state.statusIds.unshift(m.status_id); // reverse sort
       const dataLoaded = true;
       this.setState({ rooms, statusIds, dataLoaded });
+      this.props.dispatch(fetchStatus(m.status_id));
     });
   }
 
