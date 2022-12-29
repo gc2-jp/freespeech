@@ -311,6 +311,23 @@ class LivechatWebRTC extends React.Component {
     });
   }
 
+  onScreenshot = () => {
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    var w = this.videoDom.offsetWidth;
+    var h = this.videoDom.offsetHeight;
+    canvas.setAttribute('width', w);
+    canvas.setAttribute('height', h);
+    ctx.drawImage(this.videoDom, 0, 0, w, h);
+    canvas.toBlob(function(blob) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'screenshot.' + new Date().toLocaleString() + '.jpg';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }, 'image/jpeg', 0.95);
+  }
+
   // 公開ボタンクリックイベント // FIXME 2度押し対策
   onPublishStreamStart = async () => {
     this.props.dispatch(getPushStreamUrl(this.props.params.roomId, this.onPublishStreamSuccess));
@@ -358,7 +375,8 @@ class LivechatWebRTC extends React.Component {
           <div className='player'><video className='video reflect-x' ref={this.setVideoDom} controls autoPlay muted playsInline /></div>
           <div className='row marTopSmall'>
             {this.state.local_stream_started && <Button onClick={this.onToggleVideo} className='buttonSmall marRightSmall'><Icon id='video-camera' />&nbsp;{this.state.stream_video_enabled ? 'ビデオを無効にする' : 'ビデオを有効にする'}</Button>}
-            {this.state.local_stream_started && <Button onClick={this.onToggleAudio} className='buttonSmall'><Icon id='microphone' />&nbsp;{this.state.stream_audio_enabled ? '音声を無効にする' : '音声を有効にする'}</Button>}
+            {this.state.local_stream_started && <Button onClick={this.onToggleAudio} className='buttonSmall marRightSmall'><Icon id='microphone' />&nbsp;{this.state.stream_audio_enabled ? '音声を無効にする' : '音声を有効にする'}</Button>}
+            {this.state.local_stream_started && <Button onClick={this.onScreenshot} className='buttonSmall marRightSmall'><Icon id='camera' />&nbsp;スクショ保存</Button>}
           </div>
           <div className='separator' />
           <div className='marTopSmall row'>
