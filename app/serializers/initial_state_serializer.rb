@@ -24,6 +24,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       mascot: instance_presenter.mascot&.file&.url,
       profile_directory: Setting.profile_directory,
       trends: Setting.trends,
+      firebase_databaseurl: Rails.configuration.x.firebase_databaseurl,
     }
 
     if object.current_account

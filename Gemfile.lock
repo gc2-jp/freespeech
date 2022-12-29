@@ -71,6 +71,9 @@ GEM
     aes_key_wrap (1.1.0)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
+    aliyunsdkcore (0.0.17)
+      activesupport (>= 3.0.0)
+      faraday (>= 0.15.4)
     android_key_attestation (0.3.0)
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
@@ -251,6 +254,10 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
+    firebase (0.2.8)
+      googleauth
+      httpclient (>= 2.5.3)
+      json
     fog-core (2.1.0)
       builder
       excon (~> 0.58)
@@ -762,6 +769,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.10)
   active_record_query_trace (~> 1.8)
   addressable (~> 2.8)
+  aliyunsdkcore
   annotate (~> 3.2)
   aws-sdk-s3 (~> 1.114)
   better_errors (~> 2.9)
@@ -794,6 +802,7 @@ DEPENDENCIES
   faker (~> 2.21)
   fast_blank (~> 1.0)
   fastimage
+  firebase
   fog-core (<= 2.1.0)
   fog-openstack (~> 0.3)
   fuubar (~> 2.5)

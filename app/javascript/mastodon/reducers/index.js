@@ -40,6 +40,7 @@ import picture_in_picture from './picture_in_picture';
 import accounts_map from './accounts_map';
 import history from './history';
 import gc2 from '../../gc2/reducers';
+import livechat from './livechat';
 
 const reducers = {
   announcements,
@@ -83,6 +84,7 @@ const reducers = {
   picture_in_picture,
   history,
   gc2,
+  livechat,
 };
 
 export default combineReducers(reducers);

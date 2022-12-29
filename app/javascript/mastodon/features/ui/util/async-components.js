@@ -167,3 +167,23 @@ export function Gc2AboutAd () {
   return import(/* webpackChunkName: "gc2/about" */'../../../../gc2/components/about');
 }
 /* GC2 original end */
+
+export function LivechatStatuses () {
+  return import(/* webpackChunkName: "features/livechat/statuses" */'../../livechat/statuses');
+}
+
+export function LivechatViewer () {
+  return import(/* webpackChunkName: "features/livechat/viewer" */'../../livechat/viewer');
+}
+
+export function LivechatStart () {
+  return import(/* webpackChunkName: "features/livechat/publisher/start" */'../../livechat/publisher/start');
+}
+
+export function LivechatWebRTC () {
+  return import(/* webpackChunkName: "features/livechat/publisher/webrtc" */'../../livechat/publisher/webrtc');
+}
+
+export function LivechatRTMP () {
+  return import(/* webpackChunkName: "features/livechat/publisher/rtmp" */'../../livechat/publisher/rtmp');
+}

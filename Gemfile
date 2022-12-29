@@ -156,3 +156,7 @@ gem 'xorcist', '~> 1.1'
 
 gem 'jwt', '~> 2.2'
 gem 'google-apis-androidpublisher_v3', '~> 0.31.0'
+
+gem 'firebase'
+
+gem "aliyunsdkcore"

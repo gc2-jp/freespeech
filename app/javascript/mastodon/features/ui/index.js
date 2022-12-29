@@ -3,7 +3,7 @@ import React from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { defineMessages, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { Redirect, withRouter } from 'react-router-dom';
+import { Redirect, withRouter, matchPath } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import NotificationsContainer from './containers/notifications_container';
 import LoadingBarContainer from './containers/loading_bar_container';
@@ -54,6 +54,11 @@ import {
   Explore,
   FollowRecommendations,
   Gc2AboutAd,
+  LivechatStatuses,
+  LivechatViewer,
+  LivechatStart,
+  LivechatWebRTC,
+  LivechatRTMP,
 } from './util/async-components';
 import { me } from '../../initial_state';
 import { closeOnboarding, INTRODUCTION_VERSION } from 'mastodon/actions/onboarding';
@@ -130,6 +135,11 @@ class SwitchingColumnsArea extends React.PureComponent {
     }
   }
 
+  componentWillUnmount () {
+    document.body.classList.toggle('layout-single-column', false);
+    document.body.classList.toggle('layout-multiple-columns', false);
+  }
+
   componentDidUpdate (prevProps) {
     if (![this.props.location.pathname, '/'].includes(prevProps.location.pathname)) {
       this.node.handleChildrenContentChange();
@@ -169,6 +179,8 @@ class SwitchingColumnsArea extends React.PureComponent {
 
           <WrappedRoute path='/bookmarks' component={BookmarkedStatuses} content={children} />
           <WrappedRoute path='/pinned' component={PinnedStatuses} content={children} />
+          <WrappedRoute path='/livechat' exact component={LivechatStatuses} content={children} />
+          <WrappedRoute path='/livechat/start' component={LivechatStart} content={children} />
 
           <WrappedRoute path='/start' component={FollowRecommendations} content={children} />
           <WrappedRoute path='/directory' component={Directory} content={children} />
@@ -542,13 +554,20 @@ class UI extends React.PureComponent {
       goToRequests: this.handleHotkeyGoToRequests,
     };
 
+    const livechat_viewer_match = matchPath(location.pathname, { path:'/@:acct/:statusId/livechat' });
+    const livechat_webrtc_match = matchPath(location.pathname, { path:'/livechat/webrtc/:roomId' });
+    const livechat_rtmp_match = matchPath(location.pathname, { path:'/livechat/rtmp/:roomId' });
+
+    const contents = // eslint-disable-next-line
+      livechat_viewer_match ? ( <WrappedRoute path={livechat_viewer_match.path} component={LivechatViewer} content={children} /> ) // eslint-disable-next-line
+        : livechat_webrtc_match ? ( <WrappedRoute path={livechat_webrtc_match.path} component={LivechatWebRTC} content={children} /> )
+          : livechat_rtmp_match ? ( <WrappedRoute path={livechat_rtmp_match.path} component={LivechatRTMP} content={children} /> )
+            : ( <SwitchingColumnsArea location={location} mobile={layout === 'mobile' || layout === 'single-column'}>{children}</SwitchingColumnsArea> );
+
     return (
       <HotKeys keyMap={keyMap} handlers={handlers} ref={this.setHotkeysRef} attach={window} focused>
         <div className={classNames('ui', { 'is-composing': isComposing })} ref={this.setRef} style={{ pointerEvents: dropdownMenuIsOpen ? 'none' : null }}>
-          <SwitchingColumnsArea location={location} mobile={layout === 'mobile' || layout === 'single-column'}>
-            {children}
-          </SwitchingColumnsArea>
-
+          {contents}
           {layout !== 'mobile' && <PictureInPicture />}
           <NotificationsContainer />
           <LoadingBarContainer className='loading-bar' />
