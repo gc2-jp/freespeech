@@ -11,6 +11,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { firebaseDb, ref, onChildAdded, query, orderByChild, equalTo } from 'mastodon/features/livechat/components/firebaseapp';
 import Icon from 'mastodon/components/icon';
 import RelativeTimestamp from 'mastodon/components/relative_timestamp';
+import { fetchStatus } from 'mastodon/actions/statuses';
 
 const messages = defineMessages({
   heading: { id: 'column.livechat', defaultMessage: 'Livechat' },
@@ -75,6 +76,7 @@ class LivechatStatuses extends ImmutablePureComponent {
       const statusIds = this.state.statusIds.unshift(m.status_id); // reverse sort
       const dataLoaded = true;
       this.setState({ rooms, statusIds, dataLoaded });
+      this.props.dispatch(fetchStatus(m.status_id));
     });
   }
 

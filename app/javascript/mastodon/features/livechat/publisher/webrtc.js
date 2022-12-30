@@ -311,8 +311,34 @@ class LivechatWebRTC extends React.Component {
     });
   }
 
+  onScreenshot = () => {
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    var w = this.videoDom.offsetWidth;
+    var h = this.videoDom.offsetHeight;
+    canvas.setAttribute('width', w);
+    canvas.setAttribute('height', h);
+    ctx.drawImage(this.videoDom, 0, 0, w, h);
+    canvas.toBlob(function(blob) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'screenshot.' + new Date().toLocaleString() + '.jpg';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }, 'image/jpeg', 0.95);
+  }
+
+  // 公開ボタンクリックイベント // FIXME 2度押し対策
+  isTitleModified = () => {
+    let modified = !(this.state.title === this.state.title_on_firebase && this.state.description === this.state.description_on_firebase);
+    return modified
+  }
+
   // 公開ボタンクリックイベント // FIXME 2度押し対策
   onPublishStreamStart = async () => {
+    if(this.isTitleModified()){
+      this.handleSaveClick();
+    }
     this.props.dispatch(getPushStreamUrl(this.props.params.roomId, this.onPublishStreamSuccess));
   }
 
@@ -350,15 +376,15 @@ class LivechatWebRTC extends React.Component {
 
   render() {
     const { roomId } = this.props.params;
-    let visible_savebutton = !(this.state.title === this.state.title_on_firebase && this.state.description === this.state.description_on_firebase);
-    let canStartPublishStream = !visible_savebutton && this.state.title.length > 0 && this.state.description.length > 0 && this.state.local_stream_started && this.state.thumbnail?.length > 0;
+    let canStartPublishStream = this.state.title.length > 0 && this.state.description.length > 0 && this.state.local_stream_started && this.state.thumbnail?.length > 0;
     return (
       <div className='livechat'>
         <div className='info'>
           <div className='player'><video className='video reflect-x' ref={this.setVideoDom} controls autoPlay muted playsInline /></div>
           <div className='row marTopSmall'>
             {this.state.local_stream_started && <Button onClick={this.onToggleVideo} className='buttonSmall marRightSmall'><Icon id='video-camera' />&nbsp;{this.state.stream_video_enabled ? 'ビデオを無効にする' : 'ビデオを有効にする'}</Button>}
-            {this.state.local_stream_started && <Button onClick={this.onToggleAudio} className='buttonSmall'><Icon id='microphone' />&nbsp;{this.state.stream_audio_enabled ? '音声を無効にする' : '音声を有効にする'}</Button>}
+            {this.state.local_stream_started && <Button onClick={this.onToggleAudio} className='buttonSmall marRightSmall'><Icon id='microphone' />&nbsp;{this.state.stream_audio_enabled ? '音声を無効にする' : '音声を有効にする'}</Button>}
+            {this.state.local_stream_started && <Button onClick={this.onScreenshot} className='buttonSmall marRightSmall'><Icon id='camera' />&nbsp;スクショ保存</Button>}
           </div>
           <div className='separator' />
           <div className='marTopSmall row'>
@@ -393,7 +419,7 @@ class LivechatWebRTC extends React.Component {
               ))}
             </select>}
           </div>
-          <div className='simple_form buttons marTopSmall'>
+          <div className='buttons marTopSmall'>
             {!this.state.local_stream_started && <Button onClick={this.onOpenLocalStream} className='buttonSmall'>カメラを開く</Button>}
             {this.state.local_stream_started && <Button onClick={this.onCloseLocalStream} className='buttonSmall' disabled={this.state.published_at && !this.state.end_at}>カメラを閉じる</Button>}
           </div>
@@ -410,8 +436,8 @@ class LivechatWebRTC extends React.Component {
               <textarea id='description' rows='1' name='description' placeholder='説明を入力...' className='text optional textareaSmall scrolly' ref={this.setDescriptionDom} onChange={this.onTextChange} />
             </div>
           </div>
-          <div className='simple_form buttons marTopSmall'>
-            <Button className='start buttonSmall' onClick={this.handleSaveClick}  disabled={!visible_savebutton}><Icon id='cloud-upload' />&nbsp;タイトルと説明文を保存</Button>
+          <div className='buttons marTopSmall'>
+            <Button className='start buttonSmall' onClick={this.handleSaveClick}  disabled={!this.isTitleModified()}><Icon id='cloud-upload' />&nbsp;タイトルと説明文を保存</Button>
           </div>
           <div className='separator' />
           <div className='thumbnail marTopSmall'>
@@ -428,7 +454,7 @@ class LivechatWebRTC extends React.Component {
               </div>
             </div>
           </div>
-          <div className='simple_form marTopSmall'>
+          <div className='marTopSmall'>
             <div>
               {(!this.state.published_at || (!this.state.publishing_started && this.state.published_at && !this.state.end_at)) && <Button className='start' disabled={!canStartPublishStream} onClick={this.onPublishStreamStart}>公開</Button>}
               {(this.state.published_at && !this.state.end_at) && <Button className='negative' disabled={!!this.state.end_at} onClick={this.onPublishStreamStop}>終了</Button>}
