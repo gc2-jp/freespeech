@@ -11,6 +11,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { firebaseDb, ref, onChildAdded, query, orderByChild, equalTo } from 'mastodon/features/livechat/components/firebaseapp';
 import Icon from 'mastodon/components/icon';
 import RelativeTimestamp from 'mastodon/components/relative_timestamp';
+import { fetchStatus } from 'mastodon/actions/statuses';
 
 const messages = defineMessages({
   heading: { id: 'column.livechat', defaultMessage: 'Livechat' },
