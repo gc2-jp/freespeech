@@ -55,12 +55,19 @@ class ChatArea extends React.Component {
         'created_at' : m.created_at,
         'text' : m.text,
       };
-      const msgs = this.state.msgs.concat(message);
-
-      this.setState({ msgs });
-      queueMicrotask(()=>{
-        this.messagesDom.scrollTo(0, this.messagesDom.scrollHeight);
-      });
+      const MAX_MESSAGES = 100;
+      let msgs = this.state.msgs.concat(message);
+      if(Math.abs(this.messagesDom.scrollHeight - this.messagesDom.clientHeight - this.messagesDom.scrollTop) < 30){
+        if(msgs.size > MAX_MESSAGES){
+          msgs = msgs.slice(msgs.size - MAX_MESSAGES);
+        }
+        this.setState({ msgs });
+        queueMicrotask(()=>{
+          this.messagesDom.scrollTo(0, this.messagesDom.scrollHeight);
+        });
+      }else{
+        this.setState({ msgs });
+      }
     });
   }
 
