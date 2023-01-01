@@ -19,8 +19,23 @@ class LivechatStart extends React.Component {
   };
 
   handleRTMPClick = () => {
-    this.props.dispatch(showAlert('sorry', 'under construction'));
-    // this.context.router.history.push('/livechat/rtmp');
+    // first check is there is available ('not ended') room for current user
+    this.props.dispatch(getAvailableRoom({},
+      (room) => {
+        this.context.router.history.push('/livechat/rtmp/' + room.key);
+      },
+      (err) => {
+        // there is no available room so create a new one
+        this.props.dispatch(createRoom({},
+          (room) => {
+            this.context.router.history.push('/livechat/rtmp/' + room.key);
+          },
+          (err) => {
+            console.error('err=', err);
+          },
+        ));
+      },
+    ));
   }
 
   handleWebRTCClick = () => {
@@ -44,13 +59,12 @@ class LivechatStart extends React.Component {
   }
 
   render () {
-    const disabledButtonStyle = { opacity: 0.2 };
     return (
       <div className='livechat-choose'>
-        <Button onClick={this.handleRTMPClick} disabled>
-          <img src={imageOBS} alt='' style={disabledButtonStyle} />
+        <Button onClick={this.handleRTMPClick}>
+          <img src={imageOBS} alt=''/>
           <div>OBS Studio (RTMP)</div>
-          <div>under construction</div>
+          <div>GC2Pub (ARTC)</div>
         </Button>
         <Button onClick={this.handleWebRTCClick}>
           <Icon id='chrome' className='icon' />

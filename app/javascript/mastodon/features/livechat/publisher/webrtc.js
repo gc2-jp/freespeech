@@ -61,7 +61,6 @@ class LivechatWebRTC extends React.Component {
       stream_video_enabled: true,
       stream_audio_enabled: true,
       m3u8_pull_url: null,
-      rtmp_pull_url: null,
       watching: 0, // 現在の視聴者数
       watched: 0, // 過去を含むユニーク視聴者数
       publishing_started: false,
@@ -123,10 +122,9 @@ class LivechatWebRTC extends React.Component {
         const end_at = m.end_at;
         const status_id = m.status_id ?? null;
         const m3u8_pull_url = m.m3u8_pull_url ?? null;
-        const rtmp_pull_url = m.rtmp_pull_url ?? null;
         const watching = m.watching ?? 0;
         const watched = m.watched ?? 0;
-        const updateStates = { title_on_firebase: title, description_on_firebase: description, m3u8_pull_url, rtmp_pull_url, published_at, ping_at, end_at, watching, watched };
+        const updateStates = { title_on_firebase: title, description_on_firebase: description, m3u8_pull_url, published_at, ping_at, end_at, watching, watched };
         if(this.state.title_on_firebase !== title){
           this.titleDom.value = title;
           updateStates.title = title;
@@ -328,7 +326,7 @@ class LivechatWebRTC extends React.Component {
     }, 'image/jpeg', 0.95);
   }
 
-  // 公開ボタンクリックイベント // FIXME 2度押し対策
+  // タイトル、詳細文が修正されている場合true
   isTitleModified = () => {
     let modified = !(this.state.title === this.state.title_on_firebase && this.state.description === this.state.description_on_firebase);
     return modified
@@ -380,7 +378,7 @@ class LivechatWebRTC extends React.Component {
     return (
       <div className='livechat'>
         <div className='info'>
-          <div className='player'><video className='video reflect-x' ref={this.setVideoDom} controls autoPlay muted playsInline /></div>
+          <div className='player'><video className='video reflect-x' ref={this.setVideoDom} autoPlay muted playsInline /></div>
           <div className='row marTopSmall'>
             {this.state.local_stream_started && <Button onClick={this.onToggleVideo} className='buttonSmall marRightSmall'><Icon id='video-camera' />&nbsp;{this.state.stream_video_enabled ? 'ビデオを無効にする' : 'ビデオを有効にする'}</Button>}
             {this.state.local_stream_started && <Button onClick={this.onToggleAudio} className='buttonSmall marRightSmall'><Icon id='microphone' />&nbsp;{this.state.stream_audio_enabled ? '音声を無効にする' : '音声を有効にする'}</Button>}
@@ -457,7 +455,7 @@ class LivechatWebRTC extends React.Component {
           <div className='marTopSmall'>
             <div>
               {(!this.state.published_at || (!this.state.publishing_started && this.state.published_at && !this.state.end_at)) && <Button className='start' disabled={!canStartPublishStream} onClick={this.onPublishStreamStart}>公開</Button>}
-              {(this.state.published_at && !this.state.end_at) && <Button className='negative' disabled={!!this.state.end_at} onClick={this.onPublishStreamStop}>終了</Button>}
+              {(this.state.published_at && !this.state.end_at) && <><Button className='negative marRightSmall' disabled={!!this.state.end_at} onClick={this.onPublishStreamStop}>終了</Button>←配信を終了して部屋を閉じるときは必ず「終了」をクリックしてください</>}
               {(!this.state.published_at || (this.state.published_at && this.state.end_at)) && <Button className='start' onClick={this.onBackToHome}><Icon id='arrow-left' />&nbsp;ホームに戻る</Button>}
             </div>
           </div>
