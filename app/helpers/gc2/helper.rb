@@ -15,6 +15,7 @@ module Gc2::Helper
   end
 
   def check_ios_bundle_id?(bundle_id)
+    puts "config.bundle.id: #{Rails.application.config_for(:gc2)['ios_bundle_id']}"
     bundle_id == Rails.application.config_for(:gc2)['ios_bundle_id']
   end
 
