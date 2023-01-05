@@ -43,8 +43,7 @@ module Avl::AvlStreamInfoHelper
 
     # hardcoded to '_HD' until we figure out multi bitrate transcoding permanent settings for HLS with Apsara support
     # requires multi bitrate transcoding template with name 'HD' (defined in Apsara console for pull stream)
-    # streamName = STREAM_NAME_PREFIX + streamId + '_HD' + '.m3u8';
-    streamName = STREAM_NAME_PREFIX + streamId + '.m3u8';
+    streamName = STREAM_NAME_PREFIX + streamId + '_HD' + '.m3u8';
     return generatePullStreamUrl PROTOCOL_M3U8, streamName
   end
 
@@ -53,8 +52,7 @@ module Avl::AvlStreamInfoHelper
 
     # hardcoded to '_HD' until we figure out multi bitrate transcoding permanent settings for HLS with Apsara support
     # requires multi bitrate transcoding template with name 'HD' (defined in Apsara console for pull stream)
-    # streamName = STREAM_NAME_PREFIX + streamId + '_HD';
-    streamName = STREAM_NAME_PREFIX + streamId;
+    streamName = STREAM_NAME_PREFIX + streamId + '_HD';
     return generatePullStreamUrl PROTOCOL_RTMP, streamName
   end
 end
