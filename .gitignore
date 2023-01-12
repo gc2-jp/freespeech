@@ -72,3 +72,5 @@ docker-compose.override.yml
 /*.pem
 
 gcp-credentials.json
+
+/config/transactions/*
