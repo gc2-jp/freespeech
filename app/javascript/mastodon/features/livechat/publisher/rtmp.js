@@ -62,7 +62,8 @@ class LivechatRTMP extends React.Component {
   componentDidMount = () => {
     this.initFirebase();
     window.addEventListener('beforeunload', this.beforeunloadpage);
-    this.props.dispatch(getPushStreamUrl(this.props.params.roomId, (data)=>{
+    const orientation = "portrait";
+    this.props.dispatch(getPushStreamUrl(this.props.params.roomId, orientation, (data)=>{
       this.setState({ rtmp_push_url: data.push_stream_url, m3u8_pull_url: data.m3u8_pull_url });
       this.hlsFetchCount=0;
       this.hlsFetchOKCount = 0;
@@ -311,7 +312,7 @@ class LivechatRTMP extends React.Component {
     if(this.isTitleModified()){
       this.handleSaveClick();
     }
-    this.props.dispatch(getPushStreamUrl(this.props.params.roomId, this.onPublishStreamSuccess));
+    this.onPublishStreamSuccess();
   }
 
   onPublishStreamSuccess = async (data) => {
