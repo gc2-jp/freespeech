@@ -8,10 +8,22 @@ class Api::V1::Avl::PushStreamInfoController < Api::BaseController
 
   def show
     roomId = params[:id]
+    orientation = params[:orientation]
+    if orientation == "portrait"
+      orientation = "portrait"
+    else
+      orientation = "landscape"
+    end
+
     pushUrl =  generateRtcPushStreamUrl roomId
-    m3u8_pull_url = generateM3u8PullStreamUrl roomId
+    if orientation == "portrait"
+      m3u8_pull_url = generateM3u8PortraitPullStreamUrl roomId
+    else
+      m3u8_pull_url = generateM3u8PullStreamUrl roomId
+    end
     room = {
       :m3u8_pull_url => m3u8_pull_url,
+      :orientation => orientation,
     }
     response = @firebase.update("room/#{roomId}", room)
 
