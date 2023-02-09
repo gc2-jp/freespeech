@@ -35,6 +35,7 @@ const messages = defineMessages({
   discover: { id: 'navigation_bar.discover', defaultMessage: 'Discover' },
   personal: { id: 'navigation_bar.personal', defaultMessage: 'Personal' },
   security: { id: 'navigation_bar.security', defaultMessage: 'Security' },
+  point_management: { id: 'navigation_bar.point_management', defaultMessage: 'Point management' },
   menu: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
 });
 
@@ -147,9 +148,10 @@ class GettingStarted extends ImmutablePureComponent {
       navItems.push(
         <ColumnSubheading key='header-settings' text={intl.formatMessage(messages.settings_subheading)} />,
         <ColumnLink key='preferences' icon='gears' text={intl.formatMessage(messages.preferences)} href='/settings/preferences' />,
+        <ColumnLink key='point_manager' icon='credit-card-alt' text={intl.formatMessage(messages.point_management)} href='/point_management' />,
       );
 
-      height += 34 + 48;
+      height += 34 + 48 * 2;
     }
 
     return (

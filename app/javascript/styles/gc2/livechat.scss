@@ -1,0 +1,43 @@
+.gc2-error-modal {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-inner {
+    background-color: $ui-base-color;
+    border-radius: .5em;
+    padding: .5em;
+    max-width: 66%;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+    &-close {
+      cursor: pointer;
+      font-size: 1.5em;
+      color: $ui-primary-color;
+    }
+  }
+
+  &-content {
+    margin-top: 1em;
+  }
+  .error {
+    color: $error-red;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .gc2-error-modal-inner {
+    max-width: 400px;
+  }
+}

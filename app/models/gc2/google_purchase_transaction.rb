@@ -1,9 +1,9 @@
 # == Schema Information
 #
-# Table name: gc2_apple_purchase_transactions
+# Table name: gc2_google_purchase_transactions
 #
 #  id                :bigint(8)        not null, primary key
-#  notification_type :tinyint(1)
+#  notification_type :integer
 #  purchase_token    :string
 #  subscription      :json
 #  message_id        :string

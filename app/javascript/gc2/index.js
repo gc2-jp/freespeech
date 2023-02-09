@@ -5,7 +5,7 @@ import AdMonitor from './components/ad_monitor';
 
 const mapStateToProps = (state) => {
   const s = {
-    enabled: state.getIn(['gc2', 'enabled']),
+    enabled: state.getIn(['gc2', 'purchases', 'enabled']),
   };
   return s;
 };

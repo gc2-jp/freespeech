@@ -30,4 +30,8 @@ module Gc2::Helper
   def invalid_subscription(e)
     render json: { error: e.to_s }, status: 400
   end
+  
+  def invalid_livechat_message(e)
+    render json: { error: e.to_s }, status: 400
+  end
 end

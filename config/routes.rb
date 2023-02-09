@@ -583,6 +583,12 @@ Rails.application.routes.draw do
 
         post '/notification/ios',     to: 'notification#ios'
         post '/notification/android', to: 'notification#android'
+
+        get  '/account/point', to: 'account#point'
+
+        namespace :livechat do
+          resource :message, only: [:create]
+        end
       end
 
       namespace :avl do
@@ -624,6 +630,7 @@ Rails.application.routes.draw do
 
   get '/faq/ios',     to: 'faq#ios'
   get '/faq/android', to: 'faq#android'
+  get '/point_management', to: 'point_management#show'
 
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false

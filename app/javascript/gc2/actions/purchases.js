@@ -1,4 +1,4 @@
-import api from '../mastodon/api';
+import api from '../../mastodon/api';
 
 export const SET_PURCHASE_STATUS = 'SET_PURCHASE_STATUS';
 

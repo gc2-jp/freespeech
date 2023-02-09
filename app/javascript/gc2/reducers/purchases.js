@@ -1,6 +1,6 @@
 import { Map as ImmutableMap } from 'immutable';
 
-import { SET_PURCHASE_STATUS } from './actions';
+import { SET_PURCHASE_STATUS } from '../actions';
 
 const initialState = ImmutableMap({
   enabled: false,

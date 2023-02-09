@@ -1089,6 +1089,10 @@ ja:
     more: さらに…
     resources: リソース
     trending_now: トレンドタグ
+  gc2:
+    point_management:
+      redirect: ポイント決済サイトへ移動します...
+      error: エラーが発生しました
   generic:
     all: すべて
     changes_saved_msg: 正常に変更されました！

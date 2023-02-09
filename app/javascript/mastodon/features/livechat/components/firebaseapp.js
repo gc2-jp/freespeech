@@ -40,4 +40,5 @@ export * from '@firebase/database';
  * @property {string} avatar
  * @property {number} created_at
  * @property {string} text
+ * @property {number} point
  */

@@ -1,0 +1,7 @@
+.public-layout
+  .container
+    .box-widget
+      - if @url.present?
+        = t('gc2.point_management.redirect')
+      - else
+        = t('gc2.point_management.error')

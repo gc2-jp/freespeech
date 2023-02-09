@@ -6,7 +6,11 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { me } from 'mastodon/initial_state';
 import Avatar from 'mastodon/components/avatar';
 import Icon from 'mastodon/components/icon';
-import { firebaseDb, ref, push, onChildAdded, Message  } from './firebaseapp';
+import PointTable from '../../../../gc2/lib/point';
+
+import { firebaseDb, ref, push, onChildAdded, Message } from './firebaseapp';
+import MessageCustomizeDialog from './message_customize_dialog';
+import SpecialMessageList from './special_message_list';
 
 const mapStateToProps = state => {
   return {
@@ -26,7 +30,9 @@ class ChatArea extends React.Component {
     super(props);
     this.state = {
       text : '',
+      /** @type {Message[]} */
       msgs: ImmutableList([]),
+      open: false,
     };
   }
 
@@ -47,13 +53,8 @@ class ChatArea extends React.Component {
       if(!m) return;
       /** @type {Message} */
       const message = {
+        ...m,
         'key' : snapshot.key,
-        'user_id' : m.user_id,
-        'acct' : m.acct,
-        'display_name' : m.display_name,
-        'avatar' : m.avatar,
-        'created_at' : m.created_at,
-        'text' : m.text,
       };
       const MAX_MESSAGES = 100;
       let msgs = this.state.msgs.concat(message);
@@ -67,6 +68,12 @@ class ChatArea extends React.Component {
         });
       }else{
         this.setState({ msgs });
+      }
+      const ttl = PointTable.toExpiredAt(message) - Date.now();
+      if (ttl > 0) {
+        setTimeout(() => {
+          this.setState({ ...msgs.filter(m => m.key !== snapshot.key) });
+        }, ttl);
       }
     });
   }
@@ -97,15 +104,21 @@ class ChatArea extends React.Component {
     }
   }
 
-  onKeyPress = (e)=>{
-    // エンターキーで送信 他のイベントでは日本語入力と改行で問題あり
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      this.onButtonClick();
-    }
+  onKeyDown = (e)=>{
+    if (e.nativeEvent.isComposing || e.key !== 'Enter') return;
+    e.preventDefault();
+    this.pushMessage();
   }
 
+
   onButtonClick = ()=>{
+    this.setState({ open: true });
+  }
+  onCloseDialog = () => {
+    this.setState({ open: false });
+  }
+
+  pushMessage = ()=>{
     if(this.state.text === '') {
       return;
     }
@@ -117,6 +130,7 @@ class ChatArea extends React.Component {
       'avatar' : this.props.myAccount.get('avatar'),
       'created_at' : Date.now(),
       'text' : this.state.text,
+      'point': 0,
     };
     push(this.messagesRef, message);
     // 入力フォームの高さを1行に戻す
@@ -131,11 +145,16 @@ class ChatArea extends React.Component {
   }
 
   render () {
+    const { roomId } = this.props;
+    const messages = this.state.msgs;
+    const specialMessages = messages.filter(PointTable.isSpecial);
+    const chatMessages = messages.filter(({ text, point }) => !!text || point > 0);
     return (
       <div className='chatarea'>
         <div className='header'>チャット</div>
+        <SpecialMessageList items={specialMessages} />
         <div className='messages' ref={this.setMessagesDom}>
-          {this.state.msgs.map((m) => {
+          {chatMessages.map((m) => {
             return <MessageRow key={m.key} message={m} />;
           })}
         </div>
@@ -148,14 +167,19 @@ class ChatArea extends React.Component {
               <bdi><strong className='display-name__html' dangerouslySetInnerHTML={{ __html: this.props.myAccount.get('display_name_html') }} /></bdi>
             </span>
             <div className='simple_form label_input__wrapper'>
-              <textarea rows='1' name='text' placeholder='メッセージを入力...' className='text optional textareaSmall' ref={this.setInputDom} onChange={this.onTextChange} onKeyPress={this.onKeyPress} />
+              <textarea rows='1' name='text' placeholder='メッセージを入力...' className='text optional textareaSmall' ref={this.setInputDom} onChange={this.onTextChange} onKeyDown={this.onKeyDown} />
             </div>
           </div>
+          <div className='buttons'>
+            <button onClick={this.onButtonClick}><Icon id='plus-circle' size={64} /></button>
+          </div>
         </div>
-        <div className='buttons'>
-          <div className='space' />
-          <Icon id='paper-plane' size={64} onClick={this.onButtonClick} />
-        </div>
+        <MessageCustomizeDialog
+          roomId={roomId}
+          open={this.state.open}
+          defaultMessage={this.state.text}
+          onClose={this.onCloseDialog}
+        />
       </div>
     );
   }
@@ -178,10 +202,14 @@ class MessageRow extends React.Component {
       backgroundImage: `url(${this.props.message.avatar})`,
     };
 
+    const { point, text } = this.props.message;
+    const color = PointTable.toColorIndex(point);
+    const body = !!text ? text : `${point.toLocaleString()} pt`;
+
     return (
       <div className='message'>
         <div className='avatar' style={style} />
-        <p className='text'><bdi><strong className='display-name__html'>{this.props.message.display_name}</strong></bdi> &nbsp; {this.props.message.text}</p>
+        <p className='text'><bdi><strong className='display-name__html'>{this.props.message.display_name}</strong></bdi> <span className={`text-body text-body${color || '0'}`}>{body}</span></p>
       </div>
     );
   }
