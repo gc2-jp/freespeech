@@ -632,6 +632,8 @@ Rails.application.routes.draw do
   get '/faq/android', to: 'faq#android'
   get '/point_management', to: 'point_management#show'
 
+  get '/transactions', to: 'transactions#index'
+
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false
 end

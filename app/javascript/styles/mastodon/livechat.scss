@@ -47,13 +47,12 @@ $special-bg-color: lighten($ui-base-color, 5%);
 
   .player {
     width: 100%;
-    border: 1px solid lighten($ui-base-color, 30%);
     align-self: center;
     aspect-ratio: 16/9;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $ui-primary-color;
+    background-color: transparent;
 
     .icon {
       font-size: 96px;
@@ -519,6 +518,10 @@ $special-bg-color: lighten($ui-base-color, 5%);
 
     .info {
       width: 100%;
+
+      .player {
+        border: 1px solid lighten($ui-base-color, 30%);
+      }
 
       .separator {
         margin-top: 3px;

@@ -12,7 +12,6 @@ import { FormattedDate } from 'react-intl';
 import UploadButtonContainer from '../containers/upload_button_container';
 import UploadFormContainer from '../containers/upload_form_container';
 import { showAlert } from 'mastodon/actions/alerts';
-import {QRCodeSVG} from 'qrcode.react';
 import Hls from 'hls.js';
 
 const mapStateToProps = state => {
@@ -63,7 +62,8 @@ class LivechatRTMP extends React.Component {
   componentDidMount = () => {
     this.initFirebase();
     window.addEventListener('beforeunload', this.beforeunloadpage);
-    this.props.dispatch(getPushStreamUrl(this.props.params.roomId, (data)=>{
+    const orientation = "portrait";
+    this.props.dispatch(getPushStreamUrl(this.props.params.roomId, orientation, (data)=>{
       this.setState({ rtmp_push_url: data.push_stream_url, m3u8_pull_url: data.m3u8_pull_url });
       this.hlsFetchCount=0;
       this.hlsFetchOKCount = 0;
@@ -287,8 +287,8 @@ class LivechatRTMP extends React.Component {
   onScreenshot = () => {
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
-    var w = this.videoDom.offsetWidth;
-    var h = this.videoDom.offsetHeight;
+    var w = this.videoDom.videoWidth;
+    var h = this.videoDom.videoHeight;
     canvas.setAttribute('width', w);
     canvas.setAttribute('height', h);
     ctx.drawImage(this.videoDom, 0, 0, w, h);
@@ -312,7 +312,7 @@ class LivechatRTMP extends React.Component {
     if(this.isTitleModified()){
       this.handleSaveClick();
     }
-    this.props.dispatch(getPushStreamUrl(this.props.params.roomId, this.onPublishStreamSuccess));
+    this.onPublishStreamSuccess();
   }
 
   onPublishStreamSuccess = async (data) => {
@@ -343,7 +343,7 @@ class LivechatRTMP extends React.Component {
       <div className='livechat'>
         <div className='info'>
           <div className='player'><video className='video' ref={this.setVideoDom} controls autoPlay muted playsInline /></div>
-          {(!this.state.player_initialized) && <div>配信待ち</div>}
+          {(!this.state.player_initialized) && <div>GC2Pubアプリからの配信待ち</div>}
           <div className='row marTopSmall'>
             {this.state.player_initialized && 
             <>
@@ -363,16 +363,6 @@ class LivechatRTMP extends React.Component {
               <div className='row'><label className='label'>累計の視聴者数:</label> {this.state.watched}</div>
             </div>
           </div>
-          {this.state.rtmp_push_url && (<>
-            <div className='separator' />
-            <div className='marTopSmall row' style={{maxWidth:"50vw"}}>
-              <div className='marRightSmall'><QRCodeSVG value={this.state.rtmp_push_url} /></div>
-              <div>
-                <div>GC2PubアプリでこちらのQRコードを読み込んで配信を開始してください。</div>
-                <div style={{wordBreak: "break-all"}}>{this.state.rtmp_push_url}</div>
-              </div>
-            </div>
-          </>)}
           <div className='separator' />
           <div className='simple_form marTopSmall'>
             <label htmlFor='title'>タイトル</label>

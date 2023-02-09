@@ -1,0 +1,13 @@
+- content_for :page_title do
+  = '特定商取引法の表示'
+
+.public-layout
+  .container
+    .grid
+      .column-0
+        .box-widget
+          .rich-formatting
+            != @body
+
+%script{type: 'text/javascript'}
+  != @script

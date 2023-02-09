@@ -3,5 +3,5 @@
 class Avl::AvlPullStreamInfo
   include ActiveModel::Model
 
-  attr_accessor :m3u8_pull_url, :rtmp_pull_url
+  attr_accessor :m3u8_pull_url, :m3u8_portrait_pull_url, :rtmp_pull_url
 end

@@ -167,8 +167,8 @@ export function uploadCompose(files) {
   };
 };
 
-export const getPushStreamUrl = (roomId, onSuccess, onFail) => (dispatch, getState) => {
-  api(getState).get(`/api/v1/avl/push_stream_info/${roomId}`).then(({ data }) => {
+export const getPushStreamUrl = (roomId, orientation, onSuccess, onFail) => (dispatch, getState) => {
+  api(getState).get(`/api/v1/avl/push_stream_info/${roomId}?orientation=${orientation}`).then(({ data }) => {
     if (onSuccess) onSuccess(data);
   }).catch(error => {
     console.error(error);

@@ -337,7 +337,8 @@ class LivechatWebRTC extends React.Component {
     if(this.isTitleModified()){
       this.handleSaveClick();
     }
-    this.props.dispatch(getPushStreamUrl(this.props.params.roomId, this.onPublishStreamSuccess));
+    const orientation = "landscape";
+    this.props.dispatch(getPushStreamUrl(this.props.params.roomId, orientation, this.onPublishStreamSuccess));
   }
 
   onPublishStreamSuccess = async (data) => {

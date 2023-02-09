@@ -7,17 +7,17 @@ module Avl::AvlStreamInfoHelper
 
   STREAM_NAME_PREFIX = "stream"
 
-  def generateStreamAuthKey(appName, streamName, primaryKey, validityPeriodSeconds)
+  def generateStreamAuthKey(appName, streamName, primaryKey, validityPeriodMinutes)
     urlPath = "/" + appName + "/" + streamName
-    currentTimeSeconds = Time.now.to_i
-    validityTimestamp = currentTimeSeconds + validityPeriodSeconds
+    currentTimeMinutes = Time.now.to_i
+    validityTimestamp = currentTimeMinutes + validityPeriodMinutes
     authKeyHashSource = urlPath + "-" + validityTimestamp.to_s + "-0-0-" + primaryKey
     authKeyHash = Digest::MD5.hexdigest(authKeyHashSource)
     return validityTimestamp.to_s + "-0-0-" + authKeyHash
   end
 
-  def generateStreamUrl(protocolName, domainName, appName, streamName, primaryKey, validityPeriodSeconds)
-    pushAuthKey = generateStreamAuthKey appName, streamName, primaryKey, validityPeriodSeconds
+  def generateStreamUrl(protocolName, domainName, appName, streamName, primaryKey, validityPeriodMinutes)
+    pushAuthKey = generateStreamAuthKey appName, streamName, primaryKey, validityPeriodMinutes
     return "#{protocolName}://#{domainName}/#{appName}/#{streamName}?auth_key=#{pushAuthKey}"
   end
 
@@ -44,6 +44,15 @@ module Avl::AvlStreamInfoHelper
     # hardcoded to '_HD' until we figure out multi bitrate transcoding permanent settings for HLS with Apsara support
     # requires multi bitrate transcoding template with name 'HD' (defined in Apsara console for pull stream)
     streamName = STREAM_NAME_PREFIX + streamId + '_HD' + '.m3u8';
+    return generatePullStreamUrl PROTOCOL_M3U8, streamName
+  end
+
+  def generateM3u8PortraitPullStreamUrl (streamId)
+    # streamName = STREAM_NAME_PREFIX + streamId + '.m3u8';
+
+    # hardcoded to '_HDP' until we figure out multi bitrate transcoding permanent settings for HLS with Apsara support
+    # requires multi bitrate transcoding template with name 'HDP' (defined in Apsara console for pull stream)
+    streamName = STREAM_NAME_PREFIX + streamId + '_HDP' + '.m3u8';
     return generatePullStreamUrl PROTOCOL_M3U8, streamName
   end
 
