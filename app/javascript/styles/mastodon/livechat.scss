@@ -521,14 +521,6 @@ $special-bg-color: lighten($ui-base-color, 5%);
       max-width: 400px;
       margin: 20px;
       height: calc(100vh - 40px);
-
-      .chatinput {
-        .chatinputsub {
-          .textareaSmall {
-            font-size: 16px;
-          }
-        }
-      }
     }
   }
 }
@@ -568,12 +560,9 @@ $special-bg-color: lighten($ui-base-color, 5%);
       margin-top: 10px;
     }
 
-    .chatinput {
-      .chatinputsub {
-        .textareaSmall {
-          font-size: 16px;
-        }
-      }
+    .message-customize-dialog {
+      width: calc(100% - 20px);
+      bottom: 10px;
     }
   }
 }
@@ -585,5 +574,10 @@ $special-bg-color: lighten($ui-base-color, 5%);
 
   .livechat {
     min-height: -webkit-fill-available;
+
+    input[type="text"],
+    textarea {
+      font-size: 16px !important;
+    }
   }
 }
