@@ -507,6 +507,14 @@ $special-bg-color: lighten($ui-base-color, 5%);
       max-width: 400px;
       margin: 20px;
       height: calc(100vh - 40px);
+
+      .chatinput {
+        .chatinputsub {
+          .textareaSmall {
+            font-size: 16px;
+          }
+        }
+      }
     }
   }
 }
@@ -528,11 +536,29 @@ $special-bg-color: lighten($ui-base-color, 5%);
         margin-bottom: 3px;
       }
     }
+
+    .chatarea {
+      flex-grow: 1; // 横方向に残り全て
+      flex-basis: auto;
+      margin-top: 10px;
+
+      .chatinput {
+        .chatinputsub {
+          .textareaSmall {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@supports(-webkit-touch-callout: none) {
+  .ui {
+    height: -webkit-fill-available;
   }
 
-  .chatarea {
-    flex-grow: 1; // 横方向に残り全て
-    flex-basis: auto;
-    margin-top: 10px;
+  .livechat {
+    min-height: -webkit-fill-available;
   }
 }
