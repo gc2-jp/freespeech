@@ -38,11 +38,39 @@ class ChatArea extends React.Component {
 
   componentDidMount = ()=>{
     this.initFirebase();
+    this.setContainer();
   }
 
   componentWillUnmount = ()=>{
     this.onChildAddedUnsubscribe?.();
     this.onChildAddedUnsubscribe = null;
+    const container = document.querySelector('.livechat-scroll');
+    if (container) {
+      container.removeEventListener('scroll', this.onLivechatScroll);
+    }
+  }
+
+  setContainer = () => {
+    if (visualViewport.width < 600) {
+      const container = document.querySelector('.livechat-scroll');
+      if (container) {
+        container.insertBefore(document.querySelector('.livechat .info'), container.firstChild);
+        container.addEventListener('scroll', this.onLivechatScroll);
+      }
+    }
+  }
+
+  onLivechatScroll = () => {
+    const elem = document.querySelector('.livechat-scroll');
+    const info = elem.querySelector('.info');
+    if (elem && info) {
+      const scroll = elem.scrollTop;
+      if (scroll < 48) {
+        info.className = info.className.split(/\s+/).filter(c => c !== 'is-fixed').join(' ');
+      } else {
+        info.className = info.className.split(/\s+/).filter(c => c !== 'is-fixed').join(' ') + ' is-fixed';
+      }
+    }
   }
 
   initFirebase = ()=>{
@@ -149,9 +177,46 @@ class ChatArea extends React.Component {
     const messages = this.state.msgs;
     const specialMessages = messages.filter(PointTable.isSpecial);
     const chatMessages = messages.filter(({ text, point }) => !!text || point > 0);
+    if (visualViewport.width < 600) {
+      return (
+        <>
+          <div className='livechat-scroll'>
+            <div className='messages-header'>チャット</div>
+            <SpecialMessageList items={specialMessages} />
+            <div className='messages' ref={this.setMessagesDom}>
+              {chatMessages.map((m) => {
+                return <MessageRow key={m.key} message={m} />;
+              })}
+            </div>
+          </div>
+          <div className='chatinput'>
+            <div className='avatar'>
+              <Avatar account={this.props.myAccount} size={24} />
+            </div>
+            <div className='chatinputsub'>
+              <span className='display-name'>
+                <bdi><strong className='display-name__html' dangerouslySetInnerHTML={{ __html: this.props.myAccount.get('display_name_html') }} /></bdi>
+              </span>
+              <div className='simple_form label_input__wrapper'>
+                <textarea rows='1' name='text' placeholder='メッセージを入力...' className='text optional textareaSmall' ref={this.setInputDom} onChange={this.onTextChange} onKeyDown={this.onKeyDown} />
+              </div>
+            </div>
+            <div className='buttons'>
+              <button onClick={this.onButtonClick}><Icon id='plus-circle' size={64} /></button>
+            </div>
+          </div>
+          <MessageCustomizeDialog
+            roomId={roomId}
+            open={this.state.open}
+            defaultMessage={this.state.text}
+            onClose={this.onCloseDialog}
+          />
+        </>
+      );
+    }
     return (
       <div className='chatarea'>
-        <div className='header'>チャット</div>
+        <div className='messages-header'>チャット</div>
         <SpecialMessageList items={specialMessages} />
         <div className='messages' ref={this.setMessagesDom}>
           {chatMessages.map((m) => {
