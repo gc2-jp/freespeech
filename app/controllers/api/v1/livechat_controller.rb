@@ -132,6 +132,9 @@ class Api::V1::LivechatController < Api::BaseController
         )
         room['status_id'] = @status.id.to_s
 
+        # livechat_statuses作成
+        @status.build_status_livechat({ room_id: roomId }) unless @status.status_livechat.present?
+
         url = 'https://' + Rails.configuration.x.web_domain + '/web/@' + @status.account.acct + '/' + @status.id.to_s + '/livechat'
         text = @status.text + "\n\n" + url
         UpdateStatusService.new.call(
