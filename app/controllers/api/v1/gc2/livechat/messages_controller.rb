@@ -19,6 +19,14 @@ class Api::V1::Gc2::Livechat::MessagesController < Api::BaseController
     room_id = data[:room_id]
     point = data[:point]
 
+    room = fetch_room(room_id)
+    raise Gc2::InvalidLivechatMessageError, 'room user_id is empty' if room[:user_id].nil?
+    
+    target_user = User.find_by(account_id: room[:user_id])
+    raise Gc2::InvalidLivechatMessageError, 'same user' if target_user.id == current_user.id
+
+    target_account = find_or_create_point_account(target_user)
+
     message = {
       :user_id => current_account.id.to_s,
       :acct => current_account.acct,
@@ -33,7 +41,7 @@ class Api::V1::Gc2::Livechat::MessagesController < Api::BaseController
     Rails.logger.debug("firebase.push response: #{response.body.to_s}")
     message_id = response.body['name']
 
-    response = @api.expend_point(@gc2_point.customer_id, point)
+    response = @api.expend_point(@gc2_point.customer_id, target_account.customer_id, room_id, point)
     if response.nil?
       Rails.logger.debug("remove message: #{message_id}")
       response = @firebase.delete("messages/#{room_id}/#{message_id}")
@@ -59,5 +67,11 @@ class Api::V1::Gc2::Livechat::MessagesController < Api::BaseController
     puts "#{ENV['FIREBASE_DATABASEURL']}, #{ENV['FIREBASE_DATABASE_SECRET']}"
     @firebase = Firebase::Client.new(ENV['FIREBASE_DATABASEURL'], ENV['FIREBASE_DATABASE_SECRET'])
     @firebase.request.connect_timeout = 10
+  end
+
+  def fetch_room(room_id)
+    response = @firebase.get("room/#{room_id}")
+    raise Gc2::InvalidLivechatMessageError, 'no room' if response.body.nil?
+    response.body.deep_symbolize_keys
   end
 end

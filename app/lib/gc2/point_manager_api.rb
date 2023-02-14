@@ -58,9 +58,14 @@ class Gc2::PointManagerApi
     end
   end
 
-  def expend_point(customer_id, point)
+  def expend_point(customer_id, target_customer_id, room_id, point)
     url = "#{api_url}/api/point/#{customer_id}/expend"
-    req = Request.new(:post, url, body: to_api_data({ :point => point }))
+    data = {
+      :target_customer_id => target_customer_id,
+      :transaction_id => room_id,
+      :point => point,
+    }
+    req = Request.new(:post, url, body: to_api_data(data))
     req.add_headers(
       'Authorization' => "Bearer #{api_key}",
       'Content-Type' => 'application/json'

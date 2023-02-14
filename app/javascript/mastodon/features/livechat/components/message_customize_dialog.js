@@ -69,7 +69,10 @@ const MessageCustomizeDialog = ({ myAccount, pointData, roomId, open, onClose, f
     fetchPointStatus();
   }, [open]);
   useEffect(() => {
-    if (pointData.isPosted) onClose();
+    if (pointData.isPosted) {
+      setMessage('');
+      onClose();
+    }
   }, [pointData]);
   const handleChangeMessage = useCallback((e) => {
     setMessage(e.target.value);
