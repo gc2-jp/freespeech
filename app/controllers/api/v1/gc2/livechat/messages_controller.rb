@@ -42,7 +42,7 @@ class Api::V1::Gc2::Livechat::MessagesController < Api::BaseController
       raise Gc2::InvalidLivechatMessageError, 'Failed expend point'
     end
 
-    render json: {}
+    render json: { :point => response[:point] }
   end
 
   private
