@@ -201,6 +201,9 @@ $special-bg-color: lighten($ui-base-color, 5%);
   &-scroll {
     width: 100%;
     overflow-y: auto;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
 
     &::-webkit-scrollbar {
       display: none;
@@ -277,6 +280,7 @@ $special-bg-color: lighten($ui-base-color, 5%);
     border-left: 1px solid $ui-base-color;
     border-right: 1px solid $ui-base-color;
     padding-top: 10px;
+    flex: auto;
 
     .message {
       display: flex;

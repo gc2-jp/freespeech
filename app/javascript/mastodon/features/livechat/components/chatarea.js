@@ -12,6 +12,27 @@ import { firebaseDb, ref, push, onChildAdded, Message } from './firebaseapp';
 import MessageCustomizeDialog from './message_customize_dialog';
 import SpecialMessageList from './special_message_list';
 
+function throttle(func, ms) {
+  let lastTime = Date.now() - ms;
+  return (...args) => {
+    if ((lastTime + ms) < Date.now()) {
+      lastTime = Date.now();
+      func.apply(this, args);
+    }
+  };
+}
+
+function debounce(func, ms) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      timer = null;
+      func.apply(this, args);
+    }, ms);
+  };
+}
+
 const mapStateToProps = state => {
   return {
     myAccount: state.getIn(['accounts', me]),
@@ -33,45 +54,58 @@ class ChatArea extends React.Component {
       /** @type {Message[]} */
       msgs: ImmutableList([]),
       open: false,
+      width: visualViewport.width,
     };
   }
 
   componentDidMount = ()=>{
     this.initFirebase();
-    this.setContainer();
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('orientationchange', this.onResize);
   }
 
   componentWillUnmount = ()=>{
     this.onChildAddedUnsubscribe?.();
     this.onChildAddedUnsubscribe = null;
-    const container = document.querySelector('.livechat-scroll');
-    if (container) {
-      container.removeEventListener('scroll', this.onLivechatScroll);
-    }
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('orientationchange', this.onResize);
   }
 
-  setContainer = () => {
-    if (visualViewport.width < 600) {
-      const container = document.querySelector('.livechat-scroll');
-      if (container) {
-        container.insertBefore(document.querySelector('.livechat .info'), container.firstChild);
-        container.addEventListener('scroll', this.onLivechatScroll);
-      }
-    }
-  }
-
-  onLivechatScroll = () => {
-    const elem = document.querySelector('.livechat-scroll');
-    const info = elem.querySelector('.info');
-    if (elem && info) {
-      const scroll = elem.scrollTop;
-      if (scroll < 48) {
-        info.className = info.className.split(/\s+/).filter(c => c !== 'is-fixed').join(' ');
+  onResize = debounce(() => {
+    const { width } = visualViewport;
+    this.setState({ width });
+    queueMicrotask(() => {
+      if (width < 600) {
+        document.querySelectorAll('.livechat-scroll')
+          .forEach(elem => elem.insertBefore(document.querySelector('.livechat .info'), elem.firstChild));
       } else {
-        info.className = info.className.split(/\s+/).filter(c => c !== 'is-fixed').join(' ') + ' is-fixed';
+        document.querySelectorAll('.livechat')
+          .forEach(elem => elem.insertBefore(document.querySelector('.livechat .info'), elem.firstChild));
       }
-    }
-  }
+    });
+  }, 100);
+
+  onLivechatScroll = throttle(e => {
+    /** @type {HTMLDivElement} */
+    const elem = e.target;
+    if (!elem) return;
+    const threshold = 48;
+    elem.querySelectorAll('.info').forEach(info => {
+      const scroll = elem.scrollTop;
+      info.className = info.className.split(/\s+/).filter(c => c !== 'is-fixed').join(' ');
+      if (scroll >= threshold) {
+        info.className += ' is-fixed';
+      }
+      elem.querySelectorAll('.author').forEach(author => {
+        info.querySelectorAll('.player').forEach(player => {
+          author.style.marginTop = scroll < threshold
+            ? ''
+            : player.getBoundingClientRect().height + 'px';
+        });
+      });
+    });
+  }, 100);
 
   initFirebase = ()=>{
     this.messagesRef = ref(firebaseDb, `messages/${this.props.roomId}`);
@@ -177,10 +211,10 @@ class ChatArea extends React.Component {
     const messages = this.state.msgs;
     const specialMessages = messages.filter(PointTable.isSpecial);
     const chatMessages = messages.filter(({ text, point }) => !!text || point > 0);
-    if (visualViewport.width < 600) {
+    if (this.state.width < 600) {
       return (
         <>
-          <div className='livechat-scroll'>
+          <div className='livechat-scroll' onScroll={this.onLivechatScroll}>
             <div className='messages-header'>チャット</div>
             <SpecialMessageList items={specialMessages} />
             <div className='messages' ref={this.setMessagesDom}>
