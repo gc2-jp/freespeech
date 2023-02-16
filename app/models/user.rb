@@ -139,6 +139,7 @@ class User < ApplicationRecord
   attr_writer :external, :bypass_invite_request_check
 
   has_one :gc2_point, class_name: 'Gc2::PointUser', inverse_of: :user, dependent: :destroy
+  has_many :gc2_apple_consumable_transactions, class_name: 'Gc2::AppleConsumableTransaction', inverse_of: :user, dependent: :destroy
 
   def confirmed?
     confirmed_at.present?

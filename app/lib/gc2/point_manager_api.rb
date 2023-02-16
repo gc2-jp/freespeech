@@ -58,6 +58,30 @@ class Gc2::PointManagerApi
     end
   end
 
+  def deposit_point(customer_id, type, amount, point)
+    url = "#{api_url}/api/point/#{customer_id}/deposit"
+    data = {
+      :type => type,
+      :amount => amount,
+      :point => point,
+    }
+    req = Request.new(:post, url, body: to_api_data(data))
+    req.add_headers(
+      'Authorization' => "Bearer #{api_key}",
+      'Content-Type' => 'application/json'
+    )
+    req.perform do |res|
+      body = res.body_with_limit
+      Rails.logger.debug("response: #{body}")
+      if res.code == 200
+        parse_response(body)
+      else
+        Rails.logger.error "[#{res.code}] #{body}"
+        nil
+      end
+    end
+  end
+
   def expend_point(customer_id, target_customer_id, room_id, point)
     url = "#{api_url}/api/point/#{customer_id}/expend"
     data = {

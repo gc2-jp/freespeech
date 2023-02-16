@@ -1,7 +1,11 @@
 module Gc2::AccountHelper
 
-  def set_point_account
+  def set_api
     @api = Gc2::PointManagerApi.new
+  end
+
+  def set_point_account
+    set_api
     @gc2_point = find_or_create_point_account(current_user)
   end
 
@@ -10,8 +14,8 @@ module Gc2::AccountHelper
     gc2_point = user.gc2_point
     if gc2_point.nil?
       point_user = @api.register(
-        :name  => current_user.account.username,
-        :email => current_user.email
+        :name  => user.account.username,
+        :email => user.email
       )
       Rails.logger.debug("user: #{point_user.to_s}")
       gc2_point = Gc2::PointUser.create!(

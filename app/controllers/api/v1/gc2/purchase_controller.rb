@@ -36,6 +36,15 @@ class Api::V1::Gc2::PurchaseController < Api::BaseController
     render_empty
   end
 
+  def ios_iaps
+    payload = decode_jws(ios_purchase_params[:signedPayload])
+    Gc2::AppleConsumablePurchaseService.new.call(
+      current_user,
+      payload
+    )
+    render_empty
+  end
+
   private
 
   def ios_purchase_params
