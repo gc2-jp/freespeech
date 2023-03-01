@@ -174,7 +174,11 @@ class ChatArea extends React.Component {
 
 
   onButtonClick = ()=>{
-    this.setState({ open: true });
+    if (this.state.text !== '') {
+      this.pushMessage();
+    } else {
+      this.setState({ open: true });
+    }
   }
   onCloseDialog = () => {
     this.setState({ open: false });
@@ -211,6 +215,8 @@ class ChatArea extends React.Component {
     const messages = this.state.msgs;
     const specialMessages = messages.filter(PointTable.isSpecial);
     const chatMessages = messages.filter(({ text, point }) => !!text || point > 0);
+    const hasText = this.state.text.length > 0;
+    const buttonIconId = hasText ? 'paper-plane' : 'plus-circle';
     if (this.state.width < 600) {
       return (
         <>
@@ -236,7 +242,7 @@ class ChatArea extends React.Component {
               </div>
             </div>
             <div className='buttons'>
-              <button onClick={this.onButtonClick}><Icon id='plus-circle' size={64} /></button>
+              <button onClick={this.onButtonClick}><Icon id={buttonIconId} size={64} /></button>
             </div>
           </div>
           <MessageCustomizeDialog
@@ -270,7 +276,7 @@ class ChatArea extends React.Component {
             </div>
           </div>
           <div className='buttons'>
-            <button onClick={this.onButtonClick}><Icon id='plus-circle' size={64} /></button>
+            <button onClick={this.onButtonClick}><Icon id={buttonIconId} size={64} /></button>
           </div>
         </div>
         <MessageCustomizeDialog

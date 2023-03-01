@@ -7,6 +7,7 @@
 #  room_id    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  end_at     :datetime
 #
 class StatusLivechat < ApplicationRecord
   belongs_to :status, inverse_of: :status_livechat

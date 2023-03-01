@@ -392,6 +392,7 @@ Rails.application.routes.draw do
         resource :public, only: :show, controller: :public
         resources :tag, only: :show
         resources :list, only: :show
+        get 'livechat/available', to: 'livechat_available#show'
       end
 
       resources :streaming, only: [:index]

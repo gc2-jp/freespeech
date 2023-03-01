@@ -165,6 +165,15 @@ class Api::V1::LivechatController < Api::BaseController
       end
     end
 
+    if room.has_key?(:end_at)
+      @status = Status.where(account: current_account).find(response.body['status_id']) if @status.nil?
+      if @status.present? and @status.status_livechat.present?
+        livechat = @status.status_livechat
+        livechat.end_at = Time.at(room[:end_at].to_f / 1000).utc.iso8601(3)
+        livechat.save!
+      end
+    end
+
     code = 204
     if !room.empty?
       puts "Update room => room=: #{room.to_s}"
