@@ -45,6 +45,14 @@ class Api::V1::Gc2::PurchaseController < Api::BaseController
     render_empty
   end
 
+  def android_iaps
+    result = Gc2::GoogleConsumablePurchaseService.new.call(
+      current_user,
+      android_purchase_iaps_params
+    )
+    render json: result
+  end
+
   private
 
   def ios_purchase_params
@@ -53,5 +61,9 @@ class Api::V1::Gc2::PurchaseController < Api::BaseController
 
   def android_purchase_params
     params.permit(:subscription_id, :purchase_token)
+  end
+
+  def android_purchase_iaps_params
+    params.permit(:product_id, :purchase_token)
   end
 end

@@ -17,6 +17,20 @@ class Gc2::AndroidPublisherClient
       token)
   end
 
+  def get_purchase_product(package_name, product_id, token)
+    @api_service.get_purchase_product(
+      package_name,
+      product_id,
+      token)
+  end
+
+  def acknowledge_purchase_product(package_name, product_id, token)
+    @api_service.acknowledge_purchase_product(
+      package_name,
+      product_id,
+      token)
+  end
+
   def acknowledge_purchase_subscription(package_name, product_id, token)
     @api_service.acknowledge_purchase_subscription(
       package_name,

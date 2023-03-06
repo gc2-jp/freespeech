@@ -14,8 +14,9 @@ class Gc2::AppleConsumablePurchaseService < BaseService
       .first
 
     if transaction.nil?
-      transaction = create_transaction
-      Rails.logger.debug("new transaction: #{transaction.to_json}")
+      create_transaction
+    else
+      get_curent_point(@user)
     end
   end
 
@@ -53,6 +54,8 @@ class Gc2::AppleConsumablePurchaseService < BaseService
       point: point,
       payload: @payload
     })
+
+    { point: response[:point] }.to_h
   end
 
   def get_product

@@ -14,13 +14,17 @@ module Gc2::Helper
     payload
   end
 
+  def android_package_name
+    Rails.application.config_for(:gc2)['android_package_name']
+  end
+
   def check_ios_bundle_id?(bundle_id)
     puts "config.bundle.id: #{Rails.application.config_for(:gc2)['ios_bundle_id']}"
     bundle_id == Rails.application.config_for(:gc2)['ios_bundle_id']
   end
 
   def check_android_package_name?(package_name)
-    package_name == Rails.application.config_for(:gc2)['android_package_name']
+    package_name == android_package_name
   end
 
   def invalid_signed_payload

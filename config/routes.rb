@@ -588,6 +588,7 @@ Rails.application.routes.draw do
         get  '/account/point', to: 'account#point'
 
         post '/purchase/ios/iaps', to: 'purchase#ios_iaps'
+        post '/purchase/android/iaps', to: 'purchase#android_iaps'
 
         namespace :livechat do
           resource :message, only: [:create]

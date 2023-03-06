@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_28_063928) do
+ActiveRecord::Schema.define(version: 2023_03_03_043404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -490,6 +490,31 @@ ActiveRecord::Schema.define(version: 2023_02_28_063928) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["notification_uuid"], name: "index_gc2_apple_purchase_transactions_on_notification_uuid", unique: true
+  end
+
+  create_table "gc2_google_consumable_products", force: :cascade do |t|
+    t.string "product_id"
+    t.integer "price"
+    t.integer "point"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_gc2_google_consumable_products_on_product_id"
+  end
+
+  create_table "gc2_google_consumable_transactions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "transaction_id"
+    t.string "product_id"
+    t.string "purchase_token"
+    t.integer "price"
+    t.integer "point"
+    t.json "payload"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["transaction_id"], name: "index_gc2_google_consumable_transactions_on_transaction_id", unique: true
+    t.index ["user_id"], name: "index_gc2_google_consumable_transactions_on_user_id"
   end
 
   create_table "gc2_google_purchase_transactions", force: :cascade do |t|

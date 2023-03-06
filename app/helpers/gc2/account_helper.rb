@@ -25,4 +25,10 @@ module Gc2::AccountHelper
     end
     gc2_point
   end
+
+  def get_current_point(user)
+    account = find_or_create_point_account(user)
+    @api.get_account(account.customer_id)
+  end
+
 end
