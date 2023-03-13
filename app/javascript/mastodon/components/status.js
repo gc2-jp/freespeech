@@ -12,7 +12,7 @@ import AttachmentList from './attachment_list';
 import Card from '../features/status/components/card';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
+import { MediaGallery, Video, Audio, LivechatThumbnail } from '../features/ui/util/async-components';
 import { HotKeys } from 'react-hotkeys';
 import classNames from 'classnames';
 import Icon from 'mastodon/components/icon';
@@ -245,6 +245,11 @@ class Status extends ImmutablePureComponent {
       return;
     }
 
+    if (status.get('livechat')) {
+      router.history.push(`/@${status.getIn(['account', 'acct'])}/${status.get('id')}/livechat`);
+      return;
+    }
+
     router.history.push(`/@${status.getIn(['account', 'acct'])}/${status.get('id')}`);
   }
 
@@ -377,6 +382,24 @@ class Status extends ImmutablePureComponent {
             compact
             media={status.get('media_attachments')}
           />
+        );
+      } else if (status.get('livechat')) {
+        const attachment = status.getIn(['media_attachments', 0]);
+        media = (
+          <Bundle fetchComponent={LivechatThumbnail} loading={this.renderLoadingMediaGallery}>
+            {Component => (
+              <Component
+                src={attachment.get('url')}
+                alt={attachment.get('description')}
+                previewUrl={attachment.get('preview_url')}
+                previewWidth={attachment.getIn(['meta', 'small', 'width'])}
+                originalWidth={attachment.getIn(['meta', 'original', 'width'])}
+                defaultWidth={this.props.cachedMediaWidth}
+                height={110}
+                onClick={this.handleClick}
+              />
+            )}
+          </Bundle>
         );
       } else if (status.getIn(['media_attachments', 0, 'type']) === 'audio') {
         const attachment = status.getIn(['media_attachments', 0]);

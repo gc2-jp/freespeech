@@ -187,3 +187,7 @@ export function LivechatWebRTC () {
 export function LivechatRTMP () {
   return import(/* webpackChunkName: "features/livechat/publisher/rtmp" */'../../livechat/publisher/rtmp');
 }
+
+export function LivechatThumbnail () {
+  return import(/* webpackChunkName: "features/livechat/components/thumbnail" */'../../livechat/components/thumbnail');
+}

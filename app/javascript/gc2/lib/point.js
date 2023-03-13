@@ -1,4 +1,5 @@
-import { Message } from '../../mastodon/features/livechat/components/firebaseapp';
+// @ts-check
+/** @typedef {Immutable.Record<import('mastodon/features/livechat/components/firebaseapp').Message>} Message */
 
 export const PointTable = [
   { point:   100, time:     0, size:   0 },
@@ -26,6 +27,7 @@ export const toColorIndex = (value) => {
   return PointTable.length;
 };
 
+/** @type {(value: number) => number} */
 export const toTime = (value) => {
   if (typeof value !== 'number' || value <= 0) return 0;
   for (let i = 1, n = PointTable.length; i < n; i += 1) {
@@ -35,18 +37,18 @@ export const toTime = (value) => {
 };
 
 /**
- * @param {Message} param0
- * @returns {number}
+ * @type {(message: Message) => number}
  */
-export const toExpiredAt = ({ created_at, point }) => {
+export const toExpiredAt = (message) => {
+  const point = message.get('point');
+  const created_at = message.get('created_at');
   if (isNaN(point) || point <= 0) return 0;
   const time = toTime(point) * 1000;
   return created_at + time;
 };
 
 /**
- * @param {Message} param0
- * @returns {boolean}
+ * @type {(message: Message) => boolean}
  */
 export const isSpecial = message => Date.now() < toExpiredAt(message);
 

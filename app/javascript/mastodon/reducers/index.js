@@ -41,6 +41,7 @@ import accounts_map from './accounts_map';
 import history from './history';
 import gc2 from '../../gc2/reducers';
 import livechat from './livechat';
+import livechatMessages from './livechat_messages';
 
 const reducers = {
   announcements,
@@ -85,6 +86,7 @@ const reducers = {
   history,
   gc2,
   livechat,
+  livechatMessages,
 };
 
 export default combineReducers(reducers);

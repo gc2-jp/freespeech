@@ -133,23 +133,14 @@ class Api::V1::LivechatController < Api::BaseController
         room['status_id'] = @status.id.to_s
 
         # livechat_statuses作成
-        @status.build_status_livechat({ room_id: roomId }) unless @status.status_livechat.present?
-
-        url = 'https://' + Rails.configuration.x.web_domain + '/web/@' + @status.account.acct + '/' + @status.id.to_s + '/livechat'
-        text = @status.text + "\n\n" + url
-        UpdateStatusService.new.call(
-          @status,
-          current_account.id,
-          text: text,
-        )
+        @status.build_status_livechat({ room_id: roomId }).save unless @status.status_livechat.present?
       end
     elsif room.has_key?(:title) or room.has_key?(:thumbnail_id)
       # status_idがあり、title,thumbnailを修正する場合は、同時にtootも更新する
       @status = Status.where(account: current_account).find(response.body['status_id'])
       authorize @status, :update?
       if room.has_key?(:title)
-        url = 'https://' + Rails.configuration.x.web_domain + '/web/@' + @status.account.acct + '/' + @status.id.to_s + '/livechat'
-        text = room[:title] + "\n\n" + url
+        text = room[:title]
         UpdateStatusService.new.call(
           @status,
           current_account.id,

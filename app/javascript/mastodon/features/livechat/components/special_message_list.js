@@ -1,15 +1,16 @@
-import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import PointTable from 'gc2/lib/point';
 import Icon from 'mastodon/components/icon';
-import { Message } from './firebaseapp';
 
 const isTouchable = typeof window.ontouchstart !== 'undefined' && 0 < navigator.maxTouchPoints;
 
 /**
+ * @typedef {Immutable.Record<import('./firebaseapp').Message>} Message
+ */
+/**
  * @typedef SpecialMessageListProps
- * @property {Message[]} items
+ * @property {Immutable.List<Message>} items
  */
 /**
  * @param {SpecialMessageListProps} param0
@@ -73,7 +74,7 @@ const SpecialMessageList = ({ items }) => {
   return (
     <div className='special'>
       <div className='special-inner' ref={specialInnerRef}>
-        {items.map(m => <SpecialMessageRow key={m.key} message={m} />)}
+        {items.map(m => <SpecialMessageRow key={m.get('key')} message={m} />)}
         <div ref={messagesEndRef} />
       </div>
       {
@@ -115,7 +116,9 @@ SpecialMessageList.propTypes = {
  * @param {SpecialMessageRowProps} param0
  */
 const SpecialMessageRow = ({ message }) => {
-  const { avatar, point, text } = message;
+  const avatar = message.get('avatar');
+  const point = message.get('point');
+  const text = message.get('text');
   const [opacity, setOpacity] = useState('');
   const expiredAt = PointTable.toExpiredAt(message);
   const ttl = Math.max(expiredAt - Date.now() - 500, 0);
@@ -142,7 +145,7 @@ const SpecialMessageRow = ({ message }) => {
 };
 
 SpecialMessageRow.propTypes = {
-  message: PropTypes.object.isRequired,
+  message: ImmutablePropTypes.map.isRequired,
 };
 
 export default SpecialMessageList;

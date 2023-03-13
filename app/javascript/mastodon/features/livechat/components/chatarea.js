@@ -1,16 +1,26 @@
+// @ts-check
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { List as ImmutableList } from 'immutable';
+import { fromJS, List as ImmutableList, Map as ImmutableMap } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import { createSelector } from 'reselect';
+import { fetchAccount } from 'mastodon/actions/accounts';
+import { importMessage } from 'mastodon/actions/livechat_messages';
 import { me } from 'mastodon/initial_state';
 import Avatar from 'mastodon/components/avatar';
 import Icon from 'mastodon/components/icon';
 import PointTable from '../../../../gc2/lib/point';
 
-import { firebaseDb, ref, push, onChildAdded, Message } from './firebaseapp';
+import { firebaseDb, ref, push, onChildAdded } from './firebaseapp';
 import MessageCustomizeDialog from './message_customize_dialog';
+import MessageRow from './message_row';
 import SpecialMessageList from './special_message_list';
+
+/** @typedef {Immutable.Record<import('mastodon/interfaces').Account>} Account */
+/** @typedef {Immutable.Record<import('mastodon/interfaces').Relationship>} Relationship */
+
+/** @typedef {import('./firebaseapp').Message} Message */
 
 function throttle(func, ms) {
   let lastTime = Date.now() - ms;
@@ -33,17 +43,48 @@ function debounce(func, ms) {
   };
 }
 
+const getLivechatMessages = createSelector(
+  [
+    state => state.get('accounts'),
+    state => state.get('relationships'),
+    state => state.get('livechatMessages'),
+  ],
+  /**
+   * @param {Immutable.Map<string, Account>} accounts
+   * @param {Immutable.Map<string, Relationship>} relationships
+   * @param {Immutable.Map<string, Immutable.Record<Message>>} messages
+   */
+  (accounts, relationships, messages) => messages.filterNot(message => {
+    const user_id = message.get('user_id');
+    if (!accounts.has(user_id)) return true;
+
+    const r = relationships.get(user_id);
+
+    if (r?.get('blocking')) return true;
+
+    return false;
+  }));
+/** @param {Immutable.Map} state */
 const mapStateToProps = state => {
   return {
     myAccount: state.getIn(['accounts', me]),
+    messages: getLivechatMessages(state),
   };
 };
+
+/**
+ * @typedef ChatAreaProps
+ * @property {Function} dispatch
+ * @property {Immutable.Map<string, Immutable.Record<Message>>} messages
+ */
 
 export default @connect(mapStateToProps)
 class ChatArea extends React.Component {
 
   static propTypes = {
     myAccount: ImmutablePropTypes.map.isRequired,
+    messages: ImmutablePropTypes.map.isRequired,
+    dispatch: PropTypes.func.isRequired,
     roomId: PropTypes.string.isRequired,
   };
 
@@ -51,8 +92,10 @@ class ChatArea extends React.Component {
     super(props);
     this.state = {
       text : '',
-      /** @type {Message[]} */
-      msgs: ImmutableList([]),
+      /** @type {Immutable.List<string>} */
+      messageIds: ImmutableList(),
+      /** @type {Immutable.Map<string>} */
+      accountIds: ImmutableMap(),
       open: false,
       width: visualViewport.width,
     };
@@ -111,30 +154,41 @@ class ChatArea extends React.Component {
     this.messagesRef = ref(firebaseDb, `messages/${this.props.roomId}`);
 
     this.onChildAddedUnsubscribe = onChildAdded( this.messagesRef, (snapshot) => {
+      /**
+       * @type {Readonly<ChatAreaProps>}
+       */
+      const { dispatch } = this.props;
+      const { accountIds } = this.state;
       const m = snapshot.val();
       if(!m) return;
-      /** @type {Message} */
-      const message = {
+      /** @type {Immutable.Record<Message>} */
+      const message = fromJS({
         ...m,
         'key' : snapshot.key,
-      };
+      });
+
+      const accountId = message.get('user_id');
+      if (accountId && !accountIds.has(accountId)) {
+        this.setState({ accountIds: accountIds.set(accountId) });
+        dispatch(fetchAccount(accountId));
+      }
+      dispatch(importMessage(message));
+
       const MAX_MESSAGES = 100;
-      let msgs = this.state.msgs.concat(message);
+      let messageIds = this.state.messageIds.concat(message.get('key'));
       if(Math.abs(this.messagesDom.scrollHeight - this.messagesDom.clientHeight - this.messagesDom.scrollTop) < 30){
-        if(msgs.size > MAX_MESSAGES){
-          msgs = msgs.slice(msgs.size - MAX_MESSAGES);
+        if(messageIds.size > MAX_MESSAGES){
+          messageIds = messageIds.slice(messageIds.size - MAX_MESSAGES);
         }
-        this.setState({ msgs });
         queueMicrotask(()=>{
           this.messagesDom.scrollTo(0, this.messagesDom.scrollHeight);
         });
-      }else{
-        this.setState({ msgs });
       }
+      this.setState({ messageIds });
       const ttl = PointTable.toExpiredAt(message) - Date.now();
       if (ttl > 0) {
         setTimeout(() => {
-          this.setState({ ...msgs.filter(m => m.key !== snapshot.key) });
+          this.setState({ messageIds: messageIds.filter(key => key !== snapshot.key) });
         }, ttl);
       }
     });
@@ -188,7 +242,7 @@ class ChatArea extends React.Component {
     if(this.state.text === '') {
       return;
     }
-    /** @type {Message} */
+    /** @type {Omit<Message, "key">} */
     const message = {
       'user_id' : this.props.myAccount.get('id'),
       'acct' : this.props.myAccount.get('acct'),
@@ -211,10 +265,12 @@ class ChatArea extends React.Component {
   }
 
   render () {
-    const { roomId } = this.props;
-    const messages = this.state.msgs;
-    const specialMessages = messages.filter(PointTable.isSpecial);
-    const chatMessages = messages.filter(({ text, point }) => !!text || point > 0);
+    /** @type {ChatAreaProps} */
+    const { roomId, messages } = this.props;
+    const { messageIds } = this.state;
+    const originalMessages = messageIds.map(key => messages.get(key)).filter(Boolean);
+    const specialMessages = originalMessages.filter(PointTable.isSpecial);
+    const chatMessages = originalMessages.filter(m => !!m.get('text') || m.get('point') > 0);
     const hasText = this.state.text.length > 0;
     const buttonIconId = hasText ? 'paper-plane' : 'plus-circle';
     if (this.state.width < 600) {
@@ -224,9 +280,7 @@ class ChatArea extends React.Component {
             <div className='messages-header'>チャット</div>
             <SpecialMessageList items={specialMessages} />
             <div className='messages' ref={this.setMessagesDom}>
-              {chatMessages.map((m) => {
-                return <MessageRow key={m.key} message={m} />;
-              })}
+              {chatMessages.map(m => <MessageRow key={m.get('key')} message={m} />)}
             </div>
           </div>
           <div className='chatinput'>
@@ -238,7 +292,7 @@ class ChatArea extends React.Component {
                 <bdi><strong className='display-name__html' dangerouslySetInnerHTML={{ __html: this.props.myAccount.get('display_name_html') }} /></bdi>
               </span>
               <div className='simple_form label_input__wrapper'>
-                <textarea rows='1' name='text' placeholder='メッセージを入力...' className='text optional textareaSmall' ref={this.setInputDom} onChange={this.onTextChange} onKeyDown={this.onKeyDown} />
+                <textarea rows={1} name='text' placeholder='メッセージを入力...' className='text optional textareaSmall' ref={this.setInputDom} onChange={this.onTextChange} onKeyDown={this.onKeyDown} />
               </div>
             </div>
             <div className='buttons'>
@@ -248,7 +302,6 @@ class ChatArea extends React.Component {
           <MessageCustomizeDialog
             roomId={roomId}
             open={this.state.open}
-            defaultMessage={this.state.text}
             onClose={this.onCloseDialog}
           />
         </>
@@ -259,9 +312,7 @@ class ChatArea extends React.Component {
         <div className='messages-header'>チャット</div>
         <SpecialMessageList items={specialMessages} />
         <div className='messages' ref={this.setMessagesDom}>
-          {chatMessages.map((m) => {
-            return <MessageRow key={m.key} message={m} />;
-          })}
+          {chatMessages.map(m => <MessageRow key={m.get('key')} message={m} />)}
         </div>
         <div className='chatinput'>
           <div className='avatar'>
@@ -272,7 +323,7 @@ class ChatArea extends React.Component {
               <bdi><strong className='display-name__html' dangerouslySetInnerHTML={{ __html: this.props.myAccount.get('display_name_html') }} /></bdi>
             </span>
             <div className='simple_form label_input__wrapper'>
-              <textarea rows='1' name='text' placeholder='メッセージを入力...' className='text optional textareaSmall' ref={this.setInputDom} onChange={this.onTextChange} onKeyDown={this.onKeyDown} />
+              <textarea rows={1} name='text' placeholder='メッセージを入力...' className='text optional textareaSmall' ref={this.setInputDom} onChange={this.onTextChange} onKeyDown={this.onKeyDown} />
             </div>
           </div>
           <div className='buttons'>
@@ -282,39 +333,8 @@ class ChatArea extends React.Component {
         <MessageCustomizeDialog
           roomId={roomId}
           open={this.state.open}
-          defaultMessage={this.state.text}
           onClose={this.onCloseDialog}
         />
-      </div>
-    );
-  }
-
-}
-
-class MessageRow extends React.Component {
-
-  static propTypes = {
-    /** @type {Message} */
-    message: PropTypes.object.isRequired,
-  };
-
-  render() {
-    const size = 24;
-    const style = {
-      width: `${size}px`,
-      height: `${size}px`,
-      backgroundSize: `${size}px ${size}px`,
-      backgroundImage: `url(${this.props.message.avatar})`,
-    };
-
-    const { point, text } = this.props.message;
-    const color = PointTable.toColorIndex(point);
-    const body = !!text ? text : `${point.toLocaleString()} pt`;
-
-    return (
-      <div className='message'>
-        <div className='avatar' style={style} />
-        <p className='text'><bdi><strong className='display-name__html'>{this.props.message.display_name}</strong></bdi> <span className={`text-body text-body${color || '0'}`}>{body}</span></p>
       </div>
     );
   }

@@ -552,5 +552,8 @@
   "video.pause": "一時停止",
   "video.play": "再生",
   "video.unmute": "ミュートを解除する",
-  "gc2_ad_about.heading": "広告表示について"
+  "gc2_ad_about.heading": "広告表示について",
+  "livechat.message.action": "アクション",
+  "livechat.message.report": "@{name}さんを通報",
+  "livechat.message.deleted": "このメッセージは削除されました"
 }
