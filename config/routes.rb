@@ -634,6 +634,9 @@ Rails.application.routes.draw do
 
   get '/faq/ios',     to: 'faq#ios'
   get '/faq/android', to: 'faq#android'
+  namespace :help do
+    get '/livechat/support-chat', to: 'livechat#support_chat'
+  end
   get '/point_management', to: 'point_management#show'
 
   get '/transactions', to: 'transactions#index'
