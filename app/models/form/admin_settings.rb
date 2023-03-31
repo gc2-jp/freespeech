@@ -34,6 +34,7 @@ class Form::AdminSettings
     show_domain_blocks_rationale
     noindex
     require_invite_text
+    site_transactions
   ).freeze
 
   BOOLEAN_KEYS = %i(
@@ -68,6 +69,7 @@ class Form::AdminSettings
   validates :bootstrap_timeline_accounts, existing_username: { multiple: true }
   validates :show_domain_blocks, inclusion: { in: %w(disabled users all) }
   validates :show_domain_blocks_rationale, inclusion: { in: %w(disabled users all) }
+  validates :site_transactions, html: true
 
   def initialize(_attributes = {})
     super
