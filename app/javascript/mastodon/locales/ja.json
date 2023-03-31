@@ -214,6 +214,7 @@
   "getting_started.security": "アカウント設定",
   "getting_started.terms": "利用規約",
   "getting_started.privacy_policy": "プライバシーポリシー",
+  "getting_started.transactions": "特定商取引法の表示",
   "hashtag.column_header.tag_mode.all": "と{additional}",
   "hashtag.column_header.tag_mode.any": "か{additional}",
   "hashtag.column_header.tag_mode.none": "({additional} を除く)",
