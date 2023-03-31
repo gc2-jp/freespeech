@@ -1,5 +1,5 @@
 - content_for :page_title do
-  = '特定商取引法の表示'
+  = t('transactions.title', default: 'Specified Commercial Transaction Act')
 
 .public-layout
   .container
@@ -7,7 +7,7 @@
       .column-0
         .box-widget
           .rich-formatting
-            != @body
+            != @instance_presenter.site_transactions.html_safe.presence
 
 %script{type: 'text/javascript'}
   != @script

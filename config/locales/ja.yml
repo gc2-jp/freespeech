@@ -711,6 +711,9 @@ ja:
       site_terms:
         desc_html: 独自のプライバシーポリシーや利用規約、その他の法的根拠を記述できます。HTMLタグが使えます
         title: カスタム利用規約
+      site_transactions:
+        desc_html: 特定商取引法の表示に関する内容を記述できます。HTMLタグが使えます
+        title: 特定商取引法の表示
       site_title: サーバーの名前
       thumbnail:
         desc_html: OpenGraphとAPIによるプレビューに使用されます。サイズは1200×630px推奨です
@@ -1573,6 +1576,8 @@ ja:
       default: "%Y年%m月%d日 %H:%M"
       month: "%Y年 %b"
       time: "%H:%M"
+  transactions:
+    title: 特定商取引法の表示
   two_factor_authentication:
     add: 追加
     disable: 無効化
