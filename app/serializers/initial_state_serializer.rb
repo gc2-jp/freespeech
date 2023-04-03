@@ -25,6 +25,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       profile_directory: Setting.profile_directory,
       trends: Setting.trends,
       firebase_databaseurl: Rails.configuration.x.firebase_databaseurl,
+      ad_base_url: Rails.configuration.x.ad_base_url,
     }
 
     if object.current_account

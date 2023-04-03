@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { adBaseUrl } from 'mastodon/initial_state';
 
 const AdList = {
   "ad_0":[
@@ -9,14 +10,14 @@ const AdList = {
     {
       "pctag":`
         <div class='EleAd0_inner'>
-          <iframe id='acf3b41d' name='acf3b41d' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=8&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='234' height='60' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=ac5f4d45&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=8&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ac5f4d45' border='0' alt='' /></a></iframe>
+          <iframe id='acf3b41d' name='acf3b41d' src='${adBaseUrl}/delivery/afr.php?zoneid=8&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='234' height='60' allow='autoplay'><a href='${adBaseUrl}/delivery/ck.php?n=ac5f4d45&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='${adBaseUrl}/delivery/avw.php?zoneid=8&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ac5f4d45' border='0' alt='' /></a></iframe>
         </div>
       `,
     },
     {
       "pctag":`
         <div class='EleAd0_inner'>
-          <iframe id='ae55b7ff' name='ae55b7ff' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=9&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='234' height='60' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=ab7db104&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=9&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ab7db104' border='0' alt='' /></a></iframe>
+          <iframe id='ae55b7ff' name='ae55b7ff' src='${adBaseUrl}/delivery/afr.php?zoneid=9&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='234' height='60' allow='autoplay'><a href='${adBaseUrl}/delivery/ck.php?n=ab7db104&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='${adBaseUrl}/delivery/avw.php?zoneid=9&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ab7db104' border='0' alt='' /></a></iframe>
         </div>
       `,
     },
@@ -26,12 +27,12 @@ const AdList = {
     {
       "pctag":`
         <div class='EleAd1_inner'>
-          <iframe id='a779d66f' name='a779d66f' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=2&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=afd75643&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=2&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=afd75643' border='0' alt='' /></a></iframe>
+          <iframe id='a779d66f' name='a779d66f' src='${adBaseUrl}/delivery/afr.php?zoneid=2&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='${adBaseUrl}/delivery/ck.php?n=afd75643&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='${adBaseUrl}/delivery/avw.php?zoneid=2&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=afd75643' border='0' alt='' /></a></iframe>
         </div>
       `,
       "sptag":`
         <div class='EleAd1_inner'>
-          <iframe id='afe1024c' name='afe1024c' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=5&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=a0067565&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=5&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a0067565' border='0' alt='' /></a></iframe>
+          <iframe id='afe1024c' name='afe1024c' src='${adBaseUrl}/delivery/afr.php?zoneid=5&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='${adBaseUrl}/delivery/ck.php?n=a0067565&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='${adBaseUrl}/delivery/avw.php?zoneid=5&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a0067565' border='0' alt='' /></a></iframe>
         </div>
       `,
       "EleAd":null,
@@ -39,12 +40,12 @@ const AdList = {
     {
       "pctag":`
         <div class='EleAd1_inner'>
-          <iframe id='ab4e71e7' name='ab4e71e7' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=3&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=a5d49847&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=3&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a5d49847' border='0' alt='' /></a></iframe>
+          <iframe id='ab4e71e7' name='ab4e71e7' src='${adBaseUrl}/delivery/afr.php?zoneid=3&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='${adBaseUrl}/delivery/ck.php?n=a5d49847&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='${adBaseUrl}/delivery/avw.php?zoneid=3&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a5d49847' border='0' alt='' /></a></iframe>
         </div>
       `,
       "sptag":`
         <div class='EleAd1_inner'>
-          <iframe id='a3f1fdab' name='a3f1fdab' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=6&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=a9bb456a&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=6&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a9bb456a' border='0' alt='' /></a></iframe>
+          <iframe id='a3f1fdab' name='a3f1fdab' src='${adBaseUrl}/delivery/afr.php?zoneid=6&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='${adBaseUrl}/delivery/ck.php?n=a9bb456a&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='${adBaseUrl}/delivery/avw.php?zoneid=6&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a9bb456a' border='0' alt='' /></a></iframe>
         </div>
       `,
        "EleAd":null,
@@ -52,12 +53,12 @@ const AdList = {
     {
       "pctag":`
         <div class='EleAd1_inner'>
-          <iframe id='a66cebdd' name='a66cebdd' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=4&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=a171bc86&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=4&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a171bc86' border='0' alt='' /></a></iframe>
+          <iframe id='a66cebdd' name='a66cebdd' src='${adBaseUrl}/delivery/afr.php?zoneid=4&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='${adBaseUrl}/delivery/ck.php?n=a171bc86&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='${adBaseUrl}/delivery/avw.php?zoneid=4&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a171bc86' border='0' alt='' /></a></iframe>
         </div>
       `,
       "sptag":`
         <div class='EleAd1_inner'>
-          <iframe id='a30fc57a' name='a30fc57a' src='https://ad.gc2.jp/www/delivery/afr.php?zoneid=7&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='https://ad.gc2.jp/www/delivery/ck.php?n=a179b21b&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='https://ad.gc2.jp/www/delivery/avw.php?zoneid=7&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a179b21b' border='0' alt='' /></a></iframe>
+          <iframe id='a30fc57a' name='a30fc57a' src='${adBaseUrl}/delivery/afr.php?zoneid=7&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='300' height='250' allow='autoplay'><a href='${adBaseUrl}/delivery/ck.php?n=a179b21b&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='${adBaseUrl}/delivery/avw.php?zoneid=7&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a179b21b' border='0' alt='' /></a></iframe>
         </div>
       `,
        "EleAd":null,
