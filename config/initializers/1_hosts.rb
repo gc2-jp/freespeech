@@ -27,6 +27,8 @@ Rails.application.configure do
     end
   end
 
+  config.x.upload_base_url = ENV['UPLOAD_URL'] || ''
+
   unless Rails.env.test?
     config.hosts << host if host.present?
     config.hosts << web_host if web_host.present?

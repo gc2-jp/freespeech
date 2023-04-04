@@ -30,5 +30,6 @@ export const disableSwiping = getMeta('disable_swiping');
 export const languages = initialState && initialState.languages;
 export const firebaseDatabaseURL = getMeta('firebase_databaseurl');
 export const adBaseUrl = getMeta('ad_base_url');
+export const uploadBaseUrl = getMeta('upload_base_url');
 
 export default initialState;

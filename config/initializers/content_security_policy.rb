@@ -29,12 +29,12 @@ Rails.application.config.content_security_policy do |p|
 
   if Rails.env.development?
     webpacker_urls = %w(ws http).map { |protocol| "#{protocol}#{Webpacker.dev_server.https? ? 's' : ''}://#{Webpacker.dev_server.host_with_port}" }
-    p.connect_src :self, :data, :blob, assets_host, media_host, Rails.configuration.x.streaming_api_base_url, *webpacker_urls, "https://*.firebaseio.com", "wss://*.firebaseio.com", "https://*.firebasedatabase.app/", "wss://*.firebasedatabase.app","https://*.google-analytics.com","http://*.4youngpadawans.com", "https://*.gc2.jp", "http://*.gc2.jp"
+    p.connect_src :self, :data, :blob, assets_host, media_host, Rails.configuration.x.streaming_api_base_url, *webpacker_urls, "https://*.firebaseio.com", "wss://*.firebaseio.com", "https://*.firebasedatabase.app/", "wss://*.firebasedatabase.app","https://*.google-analytics.com","http://*.4youngpadawans.com", "https://*.gc2.jp", "http://*.gc2.jp", Rails.configuration.x.upload_base_url
     p.script_src  :self, :unsafe_inline, :unsafe_eval, assets_host, "https://*.firebaseio.com", "wss://*.firebaseio.com", "https://*.firebasedatabase.app/", "wss://*.firebasedatabase.app", "https://*.googletagmanager.com"
     p.child_src   :self, :blob, assets_host
     p.worker_src  :self, :blob, assets_host
   else
-    p.connect_src :self, :data, :blob, assets_host, media_host, Rails.configuration.x.streaming_api_base_url, "https://*.google-analytics.com", "https://*.analytics.google.com", "https://*.googletagmanager.com", "https://unpkg.com", "https://*.gc2.jp", "https://*.firebaseio.com", "wss://*.firebaseio.com", "https://*.firebasedatabase.app/", "wss://*.firebasedatabase.app"
+    p.connect_src :self, :data, :blob, assets_host, media_host, Rails.configuration.x.streaming_api_base_url, "https://*.google-analytics.com", "https://*.analytics.google.com", "https://*.googletagmanager.com", "https://unpkg.com", "https://*.gc2.jp", "https://*.firebaseio.com", "wss://*.firebaseio.com", "https://*.firebasedatabase.app/", "wss://*.firebasedatabase.app", Rails.configuration.x.upload_base_url
     p.script_src  :self, assets_host, "https://*.googletagmanager.com", "'sha256-0XKK4syymwOd6zCyqlD5X6T1pjUDujiD/pB6JUoOTNw='", :blob, "'wasm-unsafe-eval'", "https://*.firebaseio.com", "wss://*.firebaseio.com", "https://*.firebasedatabase.app/", "wss://*.firebasedatabase.app"
     p.child_src   :self, :blob, assets_host
     p.worker_src  :self, :blob, assets_host

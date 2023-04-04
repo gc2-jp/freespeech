@@ -11,6 +11,7 @@ import { showAlertForError } from './alerts';
 import { showAlert } from './alerts';
 import { openModal } from './modal';
 import { defineMessages } from 'react-intl';
+import { uploadBaseUrl } from '../initial_state';
 
 let cancelFetchComposeSuggestionsAccounts, cancelFetchComposeSuggestionsTags;
 
@@ -256,13 +257,9 @@ export function uploadCompose(files) {
         // Account for disparity in size of original image and resized data
         total += file.size - f.size;
 
-        let BaseUrl = "";
-        if(file.type.match(/video.*/)){
-          let hostlist = location.hostname.split('.');
-          BaseUrl = `https://upload.${hostlist.slice(-2)[0]}.${hostlist.slice(-1)[0]}`;
-        }
+        const baseUrl = file.type.match(/video.*/) ? uploadBaseUrl : '';
 
-        return api(getState).post(`${BaseUrl}/api/v2/media`, data, {
+        return api(getState).post(`${baseUrl}/api/v2/media`, data, {
           onUploadProgress: function({ loaded }){
             progress[i] = loaded;
             dispatch(uploadComposeProgress(progress.reduce((a, v) => a + v, 0), total));
